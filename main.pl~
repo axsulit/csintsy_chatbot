@@ -6,7 +6,7 @@
 
 % ask for patient information and store it in patient_info
 ask_patient_info :-
-    write('PART 1: Please enter the patient information: '), nl,
+    write('Please enter the patient information: '), nl,
     write('Age: '), read(Age),
     write('Gender (male/female): '), read(Gender),
     write('Height (in cm): '), read(Height),
@@ -23,7 +23,7 @@ ask_patient_info :-
 %  write(PatientInfo), nl.
 
 chat :-
-    write('Hello! I am a Medical Chatbot designed to give you an initial diagnosis.\nPlease be informed of our diagnostic process: (1) Patient Data (2) Symptoms (3) Diagnosis.\n\n'), nl,
+    write('Hello! I am a Medical Chatbot designed to give you an initial diagnosis.\nPlease be informed of our diagnostic process: (1) Patient Data (2) Symptoms (3) Diagnosis.'), nl,
     ask_patient_info.
 
 run_on_load :-
