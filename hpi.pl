@@ -1,37 +1,34 @@
 % Rules for identifying the history of present illness (HPI)
 
 % Define the symptom categories
-
-symptom_category(duration).
 symptom_category(poor_sanitation).
 symptom_category(travel_to_tropical_regions).
 symptom_category(contact_with_bodily_fluids).
 symptom_category(sexually_active).
 symptom_category(contaminated_food_or_beverages).
 symptom_category(use_of_illegal_drugs).
-symptom_category(chronic_liver_diseases).
-symptom_category(hiv_or_aids).
-symptom_category(active_tb_or_high_tb_risk).
+symptom_category(has_chronic_liver_diseases).
+symptom_category(has_hiv_or_aids).
+symptom_category(exposure_to_people_with_TB).
 symptom_category(living_or_working_in_tight_places).
-symptom_category(outdoors_with_poor_sanitation_and_hot_temperatures).
+symptom_category(recently_outdoors_with_poor_sanitation_and_hot_temperatures).
 symptom_category(possible_exposure_to_animal_fluids).
 
 % Define the possible answers for each symptom
-answer(duration, [1,2,3,4,5,6,7,8,9,10,'more']).
 answer(poor_sanitation, [yes, no]).
 answer(travel_to_tropical_regions, [yes, no]).
 answer(contact_with_bodily_fluids, [yes, no]).
 answer(sexually_active, [yes, no]).
 answer(contaminated_food_or_beverages, [yes, no]).
 answer(use_of_illegal_drugs, [yes, no]).
-answer(chronic_liver_diseases, [yes, no]).
-answer(hiv_or_aids, [yes, no]).
-answer(active_tb_or_high_tb_risk, [yes, no]).
+answer(has_chronic_liver_diseases, [yes, no]).
+answer(has_hiv_or_aids, [yes, no]).
+answer(exposure_to_people_with_TB, [yes, no]).
 answer(living_or_working_in_tight_places, [yes, no]).
-answer(outdoors_with_poor_sanitation_and_hot_temperatures, [yes, no]).
+answer(recently_outdoors_with_poor_sanitation_and_hot_temperatures, [yes, no]).
 answer(possible_exposure_to_animal_fluids, [yes, no]).
 
-% Ask a question
+% Identify risks
 ask(Patient, Symptom, Answer) :-
     symptom_category(Symptom),
     answer(Symptom, Options),
@@ -51,7 +48,7 @@ validate_answer(Answer, _) :-
 
 % Ask all the questions and store the positive answers in the knowledge base
 ask_history(Patient, Symptoms) :-
-    findall(Symptom-Answer, (
+    findall(Symptom, (
         ask(Patient, Symptom, Answer),
         Answer == yes, % Only store positive answers
         assertz(symptom(Patient, Symptom))
