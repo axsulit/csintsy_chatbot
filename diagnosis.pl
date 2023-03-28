@@ -5,7 +5,11 @@
 disease(Patient, typhoid_fever) :-
     yes(fever, Patient),
     yes(headache, Patient),
+    %general aches and pains
     yes(abdominal_pain, Patient),
+    yes(joint_pain, Patient),
+    yes(chest_pain, Patient)
+    yes(muscle_aches, Patient)
     yes(loss_of_appetite, Patient),
     yes(rash, Patient).
 
