@@ -153,6 +153,8 @@ disease(Patient, hookworm) :-
     yes(anemia, Patient).
     
  disease(Patient, lymphatic_filariasis) :-
+    yes(lymphedema, Patient),
+    yes(swelling_of_the_scrotum, Patient)
     yes(damage_in_the_lymph_system, Patient).
 
 
