@@ -8,10 +8,16 @@ disease(Patient, typhoid_fever) :-
     %general aches and pains
     yes(abdominal_pain, Patient),
     yes(joint_pain, Patient),
-    yes(chest_pain, Patient)
-    yes(muscle_aches, Patient)
+    yes(chest_pain, Patient),
+    yes(abdominal_pain, Patient),
+    yes(body_aches, Patient),
+    yes(fatigue, Patient),
+    yes(cough, Patient),
+    yes(constipation, Patient),
     yes(loss_of_appetite, Patient),
-    yes(rash, Patient).
+    yes(rash, Patient),
+    yes(upset_stomach, Patient),
+    yes(diarrhea, Patient).
 
 disease(Patient, influenza) :-
     yes(fever, Patient),
