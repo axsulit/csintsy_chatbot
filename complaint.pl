@@ -55,6 +55,7 @@ symptom(pain_with_breathing_or_coughing).
 symptom(yellowing_of_skin_and_eyes).
 symptom(itching).
 symptom(bleeding).
+symptom(dark_urine).
 symptom(confusion).
 symptom(poor_reflexes).
 symptom(red_eyes).
