@@ -24,6 +24,7 @@ symptom(fever).
 symptom(headache).
 symptom(abdominal_pain).
 symptom(bleeding_from_nose_or_gums).
+symptom(vomiting_with_blood_or_in_stool).
 symptom(loss_of_appetite).
 symptom(rash).
 symptom(cough).
