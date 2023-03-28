@@ -28,6 +28,7 @@ symptom(vomiting_with_blood_or_in_stool).
 symptom(irritable).
 symptom(loss_of_appetite).
 symptom(rash).
+symptom(sweating).
 symptom(cough).
 symptom(sore_throat).
 symptom(runny_or_stuffy_nose).
