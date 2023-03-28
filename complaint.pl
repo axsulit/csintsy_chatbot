@@ -22,6 +22,7 @@ chief_complaint(Patient, Symptoms) :-
 % TODO: Add ALL possible symptoms accross all diseases.
 symptom(fever).
 symptom(headache).
+symptom(localized_rash).
 symptom(abdominal_pain).
 symptom(bleeding_from_nose_or_gums).
 symptom(vomiting_with_blood_or_in_stool).
