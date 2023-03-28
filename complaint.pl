@@ -47,10 +47,10 @@ symptom(abdominal_pain).
 symptom(chest_pain).
 symptom(shortness_of_breath).
 symptom(pain_with_breathing_or_coughing).
-symptom(yellowing_of_skin_and_eyes(jaundice)).
+symptom(yellowing_of_skin_and_eyes).
 symptom(itching).
 symptom(bleeding).
 symptom(confusion).
 symptom(poor_reflexes).
-symptom(bulging_soft_spot_on_the_head(babies)).
+symptom(bulging_soft_spot_on_the_head).
 symptom(damage_in_the_lymph_system).
