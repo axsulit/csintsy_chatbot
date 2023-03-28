@@ -23,6 +23,7 @@ chief_complaint(Patient, Symptoms) :-
 symptom(fever).
 symptom(headache).
 symptom(abdominal_pain).
+symptom(bleeding_from_nose_or_gums).
 symptom(loss_of_appetite).
 symptom(rash).
 symptom(cough).
