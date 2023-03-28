@@ -67,6 +67,7 @@ disease(Patient, dengue) :-
     yes(eye_pain, Patient),
     yes(body_aches, Patient),
     yes(joint_pain, Patient),
+    yes(bone_pain, Patient),
     yes(abdominal_pain, Patient),
     yes(bleeding_from_nose_or_gums, Patient),
     yes(vomiting_with_blood_or_in_stool, Patient),
@@ -81,7 +82,24 @@ disease(Patient, influenza) :-
     yes(sore_throat, Patient),
     yes(runny_or_stuffy_nose, Patient),
     yes(body_aches, Patient),
-    yes(headache, Patient).
+    yes(headache, Patient),
+    yes(vomiting, Patient),
+    yes(diarrhea, Patient),
+    yes(fatigue, Patient).
+    
+disease(Patient, pneumonia) :-
+    yes(pain_with_breathing_or_coughing, Patient),
+    yes(cough, Patient),
+    yes(fever, Patient),
+    yes(sweating, Patient),
+    yes(chills, Patient),
+    yes(nausea, Patient),
+    yes(shortness_of_breath, Patient),
+    yes(confusion, Patient),
+    yes(lower_than_normal_body_temp, Patient),
+    yes(vomiting, Patient),
+    yes(diarrhea, Patient),
+    yes(fatigue, Patient).
 
 disease(Patient, hookworm) :-
     yes(stomach_pain, Patient),
