@@ -100,14 +100,60 @@ disease(Patient, pneumonia) :-
     yes(vomiting, Patient),
     yes(diarrhea, Patient),
     yes(fatigue, Patient).
+    
+disease(Patient, hepatitis_b) :-
+    yes(fever, Patient),
+    yes(nausea, Patient),
+    yes(fatigue, Patient),
+    yes(loss_of_appetite, Patient),
+    yes(vomiting, Patient),
+    yes(abdominal_pain, Patient),
+    yes(dark_urine, Patient),
+    yes(clay-colored_stool, Patient),
+    yes(joint_pain, Patient),
+    yes(yellowing_of_skin_and_eyes, Patient).
+    
+disease(Patient, malaria) :-
+    yes(fever, Patient),
+    yes(chills, Patient),
+    yes(sweating, Patient),
+    yes(headache, Patient),
+    yes(body_aches, Patient),
+    yes(fatigue, Patient),
+    yes(chest_pain, Patient),
+    yes(pain_with_breathing_or_coughing, Patient),
+    yes(cough, Patient),
+    yes(diarrhea,Patient),
+    yes(nausea, Patient),
+    yes(vomiting, Patient).
+    
+  disease(Patient, schistosomiasis) :-
+    yes(rash, Patient),
+    yes(itchiness, Patient),
+    yes(fever, Patient),
+    yes(chills, Patient),
+    yes(cough, Patient),
+    yes(body_aches, Patient),
+    yes(upset_stomach, Patient),
+    yes(bleeding), Patient),
+    yes(difficulty_urinating, Patient),
+    yes(diarrhea,Patient),
+    yes(nausea, Patient),
+    yes(vomiting, Patient).
 
 disease(Patient, hookworm) :-
+    yes(itching, Patient),
+    yes(localized_rash, Patient),
     yes(stomach_pain, Patient),
+    yes(abdominal_pain, Patient),
     yes(diarrhea, Patient),
     yes(weight_loss, Patient),
     yes(fatigue, Patient),
     yes(weakness, Patient),
     yes(anemia, Patient).
+    
+ disease(Patient, lymphatic_filariasis) :-
+    yes(damage_in_the_lymph_system, Patient).
 
 
 % Rules for running the diagnostic expert system
