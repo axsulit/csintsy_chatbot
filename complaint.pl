@@ -1,26 +1,48 @@
-chief_complaint(Patient, Symptoms) :- 
-    format('Select your main reason for consultation:'), nl, 
-    write('1 | pain'), nl, 
-    write('2 | fever'), nl,
-    write('3 | nausea'), nl,
-    write('4 | diarrhea'), nl,
-    write('5 | constipation'), nl,
-    write('6 | jaundice'), nl,
-    write('7 | rashes'), nl,
-    write('8 | itchiness'), nl,
-    write('9 | cough'), nl,
+% define valid choices for input in complaint
+get_chief_complaint(1, 'Fever').
+get_chief_complaint(2, 'Pain').
+get_chief_complaint(3, 'Nausea').
+get_chief_complaint(4, 'Diarrhea').
+get_chief_complaint(5, 'Constipation').
+get_chief_complaint(6, 'Jaundice').
+get_chief_complaint(7, 'Rash').
+get_chief_complaint(8, 'Itching').
+get_chief_complaint(9, 'Cough').
+
+% define valid choices for input in Pain
+get_pain(1, 'Head').
+get_pain(2, 'Muscle').
+get_pain(3, 'Joints').
+get_pain(4, 'Stomach').
+get_pain(5, 'Abdomen').
+get_pain(6, 'Chest').
+
+% get chief complaint
+chief_complaint :-
+    write('Select your main reason for consultation:'), nl,
+    write('1 | Fever'), nl,
+    write('2 | Pain'), nl,
+    write('3 | Nausea'), nl,
+    write('4 | Diarrhea'), nl,
+    write('5 | Constipation'), nl,
+    write('6 | Jaundice'), nl,
+    write('7 | Rash'), nl,
+    write('8 | Itching'), nl,
+    write('9 | Cough'), nl,
     read(Input),
-    (   Input = 1 -> Complaint = pain
-    ;   Input = 2 -> Complaint = fever
-    ;   Input = 3 -> Complaint = nausea
-    ;   Input = 4 -> Complaint = diarrhea
-    ;   Input = 5 -> Complaint = constipation
-    ;   Input = 6 -> Complaint = jaundice
-    ;   Input = 7 -> Complaint = rashes
-    ;   Input = 8 -> Complaint = itchiness
-    ;   Input = 9 -> Complaint = cough
-    ;   write('Invalid input!'), nl, chief_complaint(Patient, Symptoms)
-    ),
-    write(Complaint), nl,
-    append(Symptoms, [Complaint], NewSymptoms),
-    assertz(symptoms(Patient, NewSymptoms)).
+    get_chief_complaint(Input, Complaint),
+    write('Your chief complaint is: '), write(Complaint), nl,
+    (Input = 2 ->
+        write('What type of pain do you have?'), nl,
+        write('1 | Head'), nl,
+        write('2 | Muscle'), nl,
+        write('3 | Joints'), nl,
+        write('4 | Stomach'), nl,
+        write('5 | Abdomen'), nl,
+        write('6 | Chest'), nl,
+        read(PainInput),
+        get_pain(PainInput, Pain),
+        write('You have pain in your: '), write(Pain), nl
+    ;
+        true
+    ).
