@@ -18,7 +18,7 @@ get_pain(5, 'Abdomen').
 get_pain(6, 'Chest').
 
 % get chief complaint
-chief_complaint(Complaint) :-
+chief_complaint(cc) :-
     write('Select your main reason for consultation:'), nl,
     write('1 | Fever'), nl,
     write('2 | Pain'), nl,
