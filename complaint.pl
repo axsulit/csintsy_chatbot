@@ -56,6 +56,7 @@ symptom(yellowing_of_skin_and_eyes).
 symptom(itching).
 symptom(bleeding).
 symptom(dark_urine).
+symptom(clay-colored_stool).
 symptom(confusion).
 symptom(poor_reflexes).
 symptom(red_eyes).
