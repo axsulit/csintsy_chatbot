@@ -31,6 +31,7 @@ disease(Patient, hepatitis_a) :-
 
 disease(Patient, tuberculosis) :-
     yes(cough, Patient),
+    yes(cough_with_blood, Patient),
     yes(pain_with_breathing_or_coughing, Patient),
     yes(fever, Patient),
     yes(chills, Patient),
@@ -45,6 +46,34 @@ disease(Patient, tuberculosis) :-
     yes(bulging_soft_spot_on_the_head, Patient),
     yes(poor_reflexes, Patient),
     yes(loss_of_appetite, Patient).
+    
+disease(Patient, leptospirosis) :-
+    yes(fever, Patient),
+    yes(headache, Patient),
+    yes(chills, Patient),
+    yes(vomiting, Patient),
+    yes(body_aches, Patient),
+    yes(yellowing_of_skin_and_eyes, Patient),
+    yes(abdominal_pain, Patient),
+    yes(diarrhea, Patient),
+    yes(rash, Patient),
+    yes(red_eyes, Patient).
+    
+disease(Patient, dengue) :-
+    yes(nausea, Patient),
+    yes(vomiting, Patient),
+    yes(rash, Patient),
+    %aches and pains
+    yes(eye_pain, Patient),
+    yes(body_aches, Patient),
+    yes(joint_pain, Patient),
+    yes(abdominal_pain, Patient),
+    yes(bleeding_from_nose_or_gums, Patient),
+    yes(vomiting_with_blood_or_in_stool, Patient),
+    yes(vomiting, Patient),
+    yes(weakness, Patient),
+    yes(irritable, Patient),
+    yes(fatigue, Patient).
     
 disease(Patient, influenza) :-
     yes(fever, Patient),
