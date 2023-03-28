@@ -61,5 +61,6 @@ symptom(confusion).
 symptom(poor_reflexes).
 symptom(red_eyes).
 symptom(enlarged_liver).
+symptom(difficulty_urinating).
 symptom(bulging_soft_spot_on_the_head).
 symptom(damage_in_the_lymph_system).
