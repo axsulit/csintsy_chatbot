@@ -33,6 +33,7 @@ symptom(stomach_pain).
 symptom(diarrhea).
 symptom(weight_loss).
 symptom(fatigue).
+symptom(eye_pain).
 symptom(weakness).
 symptom(anemia).
 symptom(chills).
