@@ -58,4 +58,6 @@ disease_risk(Disease, Risk) :-
     findall(Symptom, symptom_of(Disease, Symptom), Symptoms),
     length(Symptoms, N),
     total_score(Disease, Score),
-    (Score >= N/2 -> Risk = high; Risk = low).
+    (Score >= N/2 -> Risk = high; Risk = low),
+    (Score >= N/2 -> Risk = high; Risk = low),
+    write('Your risk for '), write(Disease), write(' is '), write(Risk).
