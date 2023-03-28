@@ -1,0 +1,9 @@
+% Rules for identifying the history of present illness (HPI)
+% hpi(Patient, []) :- !.
+hpi(Patient, [Symptom|Rest]) :-
+    write('Do you have '), write(Symptom), write('? (yes/no)'), nl,
+    read(Response),
+    (Response == yes ->
+        assert(yes(Symptom, Patient));
+        assert(no(Symptom, Patient))),
+    hpi(Patient, Rest).
