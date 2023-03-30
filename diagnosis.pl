@@ -5,7 +5,7 @@ weight(2, _, 0.5).
 weight(3, _, 1).
 weight(4, _, 1).
 
-% Define the symptoms for each disease
+% Define the symptoms and causes for each disease
 symptom_of(hepatitis_a, jaundice).
 symptom_of(hepatitis_a, lack_of_appetite).
 symptom_of(hepatitis_a, upset_stomach).
@@ -17,6 +17,10 @@ symptom_of(hepatitis_a, light_colored_stools).
 symptom_of(hepatitis_a, diarrhea).
 symptom_of(hepatitis_a, joint_pain).
 symptom_of(hepatitis_a, fatigue).
+cause_of(hepatitis_a, poor_sanitation).
+cause_of(hepatitis_a, sexually_active).
+cause_of(hepatitis_a, contact_with_bodily_fluids).
+cause_of(hepatitis_a, contaminated_food_or_beverages).
 
 symptom_of(influenza, fever).
 symptom_of(influenza, cough).
@@ -27,6 +31,7 @@ symptom_of(influenza, headache).
 symptom_of(influenza, fatigue).
 symptom_of(influenza, vomiting).
 symptom_of(influenza, diarrhea).
+cause_of(influenza, exposure_to_people_with_flu).
 
 symptom_of(schistosomiasis, rash).
 symptom_of(schistosomiasis, itchy_skin).
@@ -37,7 +42,7 @@ symptom_of(schistosomiasis, difficulty_urinating).
 symptom_of(schistosomiasis, enlarged_liver).
 symptom_of(schistosomiasis, cough).
 symptom_of(schistosomiasis, fever).
-
+cause_of(schistosomiasis, possible_exposure_to_animal_fluids).
 
 
 % Define the predicate to ask the user about symptom severity for a specific disease
@@ -45,23 +50,49 @@ ask_symptom_severity(Symptom, Severity) :-
     format("On a scale of 0 to 4, how severe is your ~w? ", [Symptom]),
     read(Severity).
 
+ask_symptom(Symptom, Answer) :-
+    format("Are you experiencing ~w? ", [Symptom]),
+    read(Answer).
+
 % Define the predicate to calculate the symptom score for a specific disease
 symptom_score(Disease, Symptom, Score) :-
-    ask_symptom_severity(Symptom, Severity),
+    ask_symptom(Symptom, Answer),
+    (Answer == yes ->
+    ask_symptom_severity(Symptom, Severity);
+    Severity is 0),
     weight(Severity, Disease, Score).
 
 % Define the predicate to calculate the total symptom score for a specific disease
 total_score(Disease, Score) :-
-    findall(SymptomScore, (symptom_of(Disease, Symptom), symptom_score(Disease, Symptom, SymptomScore)), Scores),
+    findall(SymptomScore,
+            (symptom_of(Disease, Symptom),
+             symptom_score(Disease, Symptom, SymptomScore)
+            ),
+            Scores
+           ),
     sum_list(Scores, Score).
 
-% Define the predicate to determine the risk of a specific disease based on symptom score
-disease_risk(Disease, Risk) :-
+disease_risk([], []).
+disease_risk([Disease | RestDiseases], [Risk | RestRisks]) :-
     findall(Symptom, symptom_of(Disease, Symptom), Symptoms),
     length(Symptoms, N),
     total_score(Disease, Score),
     (Score >= N/2 -> Risk = high; Risk = low),
-    (Score >= N/2 -> Risk = high; Risk = low),
-    write('Your risk for '), write(Disease), write(' is '), write(Risk).
+    write('Your risk for '), write(Disease), write(' is '), write(Risk), nl,
+    disease_risk(RestDiseases, RestRisks).
 
+% TODO: If risk is high, but certain diagnosis require lab results,
+% display "refer to large facility
+%
+
+identify_potential_disease(Diseases, Complaint, Causes) :-
+    findall(Disease,
+            (cause_of(Disease, Cause),
+             member(Cause, Causes),
+             symptom_of(Disease, Complaint)
+            ),
+            DiseasesWithRepeats
+           ),
+    list_to_set(DiseasesWithRepeats, Diseases),
+    write('You may have the following diseases: '), write(Diseases), nl.
 

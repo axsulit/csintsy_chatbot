@@ -1,8 +1,8 @@
 % define valid choices for input in complaint
-get_chief_complaint(1, 'Fever').
-get_chief_complaint(2, 'Pain').
-get_chief_complaint(3, 'Nausea').
-get_chief_complaint(4, 'Diarrhea').
+get_chief_complaint(1, 'fever').
+get_chief_complaint(2, 'pain').
+get_chief_complaint(3, 'nausea').
+get_chief_complaint(4, 'diarrhea').
 get_chief_complaint(5, 'Constipation').
 get_chief_complaint(6, 'Jaundice').
 get_chief_complaint(7, 'Rash').
@@ -18,7 +18,7 @@ get_pain(5, 'Abdomen').
 get_pain(6, 'Chest').
 
 % get chief complaint
-chief_complaint(cc) :-
+chief_complaint(Complaint) :-
     write('Select your main reason for consultation:'), nl,
     write('1 | Fever'), nl,
     write('2 | Pain'), nl,

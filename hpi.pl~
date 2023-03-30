@@ -10,7 +10,6 @@ cause(use_of_illegal_drugs).
 cause(has_chronic_liver_diseases).
 cause(has_hiv_or_aids).
 cause(exposure_to_people_with_TB).
-cause(exposure_to_people_with_flu).
 cause(living_or_working_in_tight_places).
 cause(recently_outdoors_with_poor_sanitation_and_hot_temperatures).
 cause(possible_exposure_to_animal_fluids).

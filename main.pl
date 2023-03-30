@@ -1,6 +1,6 @@
 % Start the bot on load.
-:- initialization(run_on_load).
-
+%:- initialization(run_on_load).
+%
 % Load necessary files
 :- consult('complaint.pl').
 :- consult('hpi.pl').
@@ -13,7 +13,7 @@
 % ask for patient information and store it in patient_info
 ask_patient_info :-
     write('PART 1: Please enter the patient information: '), nl,
-    write('Name: '), read(PName),atom(PName),
+    write('Name: '), read(PName),
     write('Age: '), read(Age),
     write('Gender (male/female): '), read(Gender),
     write('Height (in cm): '), read(Height),
@@ -34,14 +34,15 @@ get_patient_name(PName) :-
 
 chat :-
     write('Hello! I am a Medical Chatbot designed to give you an initial diagnosis.\nPlease be informed of our diagnostic process: (1) Patient Data (2) Symptoms (3) Diagnosis.\n\n'), nl,
-    ask_patient_info,
+    % ask_patient_info,.
     chief_complaint(Complaint),
-    get_patient_name(PName),
-    ask_history(PName, Complaint).
-   %  disease_risk(Disease, Risk).
+    % get_patient_name(PName),
+    ask_history(anne, Causes),
+    identify_potential_disease(Disease, Complaint, Causes),
+    disease_risk(Disease, Risk).
 
-run_on_load :-
-    chat.
+% run_on_load :-
+%    chat.
 
 
 
