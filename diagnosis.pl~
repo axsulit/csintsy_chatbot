@@ -60,8 +60,6 @@ symptom_score(Disease, Symptom, Score) :-
     (Answer == yes ->
     ask_symptom_severity(Symptom, Severity);
     Severity is 0),
-
-    write(Severity),nl,
     weight(Severity, Disease, Score).
 
 % Define the predicate to calculate the total symptom score for a specific disease
@@ -76,16 +74,17 @@ total_score(Disease, Score) :-
 
 disease_risk([], []).
 disease_risk([Disease | RestDiseases], [Risk | RestRisks]) :-
-    findall(Symptom, symptom_of(Disease, Symptom), Symptoms),
-    length(Symptoms, N),
+    findall(Symptom, symptom_of(Disease, Symptom), _),
     total_score(Disease, Score),
-    (Score >= N/2 -> Risk = high; Risk = low),
+    %TO REVISE WEIGHTS
+    (Score =< 0.2 -> Risk = 'very low';
+    Score =< 0.4 -> Risk = low;
+    Score =< 0.6 -> Risk = medium;
+    Score =< 0.8 -> Risk = high;
+    Risk = 'very high'),
     write('Your risk for '), write(Disease), write(' is '), write(Risk), nl,
     disease_risk(RestDiseases, RestRisks).
 
-% TODO: If risk is high, but certain diagnosis require lab results,
-% display "refer to large facility
-%
 
 identify_potential_disease(Diseases, Complaint, Causes) :-
     findall(Disease,

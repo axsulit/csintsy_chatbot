@@ -1,8 +1,8 @@
 % Define the weight of each symptom severity level for each disease
-weight(0, _, 0).
-weight(1, _, 0.5).
-weight(2, _, 0.5).
-weight(3, _, 1).
+weight(0, _, 0.2).
+weight(1, _, 0.4).
+weight(2, _, 0.6).
+weight(3, _, 0.8).
 weight(4, _, 1).
 
 % Define the symptoms and causes for each disease
@@ -74,16 +74,17 @@ total_score(Disease, Score) :-
 
 disease_risk([], []).
 disease_risk([Disease | RestDiseases], [Risk | RestRisks]) :-
-    findall(Symptom, symptom_of(Disease, Symptom), Symptoms),
-    length(Symptoms, N),
+    findall(Symptom, symptom_of(Disease, Symptom), _),
     total_score(Disease, Score),
-    (Score >= N/2 -> Risk = high; Risk = low),
+    %TO REVISE WEIGHTS
+    (Score =< 0.2 -> Risk = 'very low';
+    Score =< 0.4 -> Risk = low;
+    Score =< 0.6 -> Risk = medium;
+    Score =< 0.8 -> Risk = high;
+    Risk = 'very high'),
     write('Your risk for '), write(Disease), write(' is '), write(Risk), nl,
     disease_risk(RestDiseases, RestRisks).
 
-% TODO: If risk is high, but certain diagnosis require lab results,
-% display "refer to large facility
-%
 
 identify_potential_disease(Diseases, Complaint, Causes) :-
     findall(Disease,

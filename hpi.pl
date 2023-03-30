@@ -25,6 +25,7 @@ answer(use_of_illegal_drugs, [yes, no]).
 answer(has_chronic_liver_diseases, [yes, no]).
 answer(has_hiv_or_aids, [yes, no]).
 answer(exposure_to_people_with_TB, [yes, no]).
+answer(exposure_to_people_with_flu, [yes, no]).
 answer(living_or_working_in_tight_places, [yes, no]).
 answer(recently_outdoors_with_poor_sanitation_and_hot_temperatures, [yes, no]).
 answer(possible_exposure_to_animal_fluids, [yes, no]).
