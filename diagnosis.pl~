@@ -71,22 +71,52 @@ symptom_of(hepatitis_b, jaundice).
 cause_of(hepatitis_b, contact_with_bodily_fluids).
 cause_of(hepatitis_b, sexually_active).
 
+:- dynamic checked_symptoms/1.
+:- dynamic symptom_flag/1.
+checked_symptoms([]).
+symptom_flag(false).
+
+
+print_symptoms_helper([]).
+print_symptoms_helper([[Symptom, SeverityScore]|Rest]) :-
+    write(Symptom), write(' (Severity Score: '), write(SeverityScore), write(')'), nl,
+    print_symptoms_helper(Rest).
+
+
+% Define a rule to add a symptom to the list with a given severity score.
+add_symptom(Disease,Symptom, SeverityScore) :-
+    (not(symptom_flag(Symptom)), symptom_of(Disease, Symptom)),
+    retract(checked_symptoms(Symptoms)),
+    asserta(checked_symptoms([[Symptom, SeverityScore]|Symptoms])),
+    asserta(symptom_flag(Symptom)),
+    print_symptoms_helper(Symptoms).
+
+
 % Define the predicate to ask the user about symptom severity for a specific disease
 ask_symptom_severity(Symptom, Severity) :-
     format("On a scale of 0 to 4, how severe is your ~w? ", [Symptom]),
     read(Severity).
 
 ask_symptom(Symptom, Answer) :-
-    format("Are you experiencing ~w? ", [Symptom]),
-    read(Answer).
+    %format("Are you experiencing ~w? ", [Symptom]),
+   % read(Answer).
+    (member([Symptom,_], checked_symptoms) ->
+        Answer = no % symptom already checked, set answer to yes
+    ;
+        format("Are you experiencing ~w? ", [Symptom]),
+        read(Answer)
+    ).
 
-% Define the predicate to calculate the symptom score for a specific disease
 symptom_score(Disease, Symptom, Score) :-
     ask_symptom(Symptom, Answer),
     (Answer == yes ->
-    ask_symptom_severity(Symptom, Severity);
-    Severity is 0),
-    weight(Severity, Disease, Score).
+    ask_symptom_severity(Symptom, Severity)
+     ;
+    Severity is 0)
+    ),
+    weight(Severity, Disease, Score),
+    add_symptom(Disease, Symptom, Score),
+    write(Symptom), write(Score),nl.
 
 % Define the predicate to calculate the total symptom score for a specific disease
 total_score(Disease, Score) :-

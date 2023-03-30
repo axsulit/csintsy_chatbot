@@ -1,5 +1,5 @@
 % Start the bot on load.
-:- initialization(run_on_load).
+%:- initialization(run_on_load).
 
 % Load necessary files
 :- consult('complaint.pl').
@@ -34,15 +34,15 @@ get_patient_name(PName) :-
 
 chat :-
     write('Hello! I am a Medical Chatbot designed to give you an initial diagnosis.\nPlease be informed of our diagnostic process: (1) Patient Data (2) Symptoms (3) Diagnosis.\n\n'), nl,
-    ask_patient_info,
+    %ask_patient_info,
     chief_complaint(Complaint),
-    get_patient_name(PName),
-    ask_history(PName, Causes),
+    %get_patient_name(PName),
+    ask_history(anne, Causes),
     identify_potential_disease(Disease, Complaint, Causes),
     disease_risk(Disease, Risk).
 
-run_on_load :-
-    chat.
+%run_on_load :-
+%    chat.
 
 
 
