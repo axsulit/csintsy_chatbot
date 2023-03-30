@@ -44,6 +44,33 @@ symptom_of(schistosomiasis, cough).
 symptom_of(schistosomiasis, fever).
 cause_of(schistosomiasis, possible_exposure_to_animal_fluids).
 
+symptom_of(leptospirosis, fever).
+symptom_of(leptospirosis, headache).
+symptom_of(leptospirosis, chills).
+symptom_of(leptospirosis, body_aches).
+symptom_of(leptospirosis, vomiting).
+symptom_of(leptospirosis, jaundice).
+symptom_of(leptospirosis, red_eyes).
+symptom_of(leptospirosis, abdominal_pain).
+symptom_of(leptospirosis, diarrhea).
+symptom_of(leptospirosis, rash).
+cause_of(leptospirosis, possible_exposure_to_animal_fluids).
+cause_of(leptospirosis, contaminated_food_or_beverages).
+
+
+symptom_of(hepatitis_b, fever).
+symptom_of(hepatitis_b, fatigue).
+symptom_of(hepatitis_b, loss_of_appetite).
+symptom_of(hepatitis_b, nausea).
+symptom_of(hepatitis_b, vomiting).
+symptom_of(hepatitis_b, abdominal_pain).
+symptom_of(hepatitis_b, dark_urine).
+symptom_of(hepatitis_b, clay_colored_stool).
+symptom_of(hepatitis_b, joint_pain).
+symptom_of(hepatitis_b, jaundice).
+cause_of(hepatitis_b, contact_with_bodily_fluids).
+cause_of(hepatitis_b, sexually_active).
+
 
 % Define the predicate to ask the user about symptom severity for a specific disease
 ask_symptom_severity(Symptom, Severity) :-
