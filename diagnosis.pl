@@ -1,7 +1,7 @@
 % Define the weight of each symptom severity level for each disease
-weight(0, _, 0.2).
-weight(1, _, 0.4).
-weight(2, _, 0.6).
+weight(0, _, 0.0).
+weight(1, _, 0.08).
+weight(2, _, 0.1).
 weight(3, _, 0.8).
 weight(4, _, 1).
 
@@ -236,4 +236,5 @@ identify_potential_disease(Diseases, Complaint, Severity, Causes) :-
             DiseasesWithRepeats
            ),
     list_to_set(DiseasesWithRepeats, Diseases), nl,
-    write('You may have the following diseases: '), write(Diseases), nl.
+    write('You may have the following diseases: '), write(Diseases), nl,
+    write('You may refer to a medical facility to obtain a more accurate diagnosis.'), nl.
