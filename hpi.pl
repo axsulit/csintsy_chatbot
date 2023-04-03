@@ -30,6 +30,8 @@ answer(living_or_working_in_tight_places, [yes, no]).
 answer(recently_outdoors_with_poor_sanitation_and_hot_temperatures, [yes, no]).
 answer(possible_exposure_to_animal_fluids, [yes, no]).
 
+
+%TODO: Redo prompt display to prevent repetitive display
 % Identify risks
 ask(Patient, Cause, Answer) :-
     % get cause

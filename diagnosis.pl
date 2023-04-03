@@ -113,7 +113,7 @@ symptom_score(Disease, Symptom, Score) :-
     ;
        member([Symptom, Score], List)
 
-    ), nl, nl.
+    ).
 
 
 % Define the predicate to calculate the total symptom score for a specific disease
@@ -149,6 +149,6 @@ identify_potential_disease(Diseases, Complaint, Causes) :-
             ),
             DiseasesWithRepeats
            ),
-    list_to_set(DiseasesWithRepeats, Diseases),
+    list_to_set(DiseasesWithRepeats, Diseases), nl,
     write('You may have the following diseases: '), write(Diseases), nl.
 

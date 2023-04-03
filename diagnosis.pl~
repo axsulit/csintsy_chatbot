@@ -113,14 +113,14 @@ symptom_score(Disease, Symptom, Score) :-
     ;
        member([Symptom, Score], List)
 
-    ), nl, nl.
+    ).
 
 
 % Define the predicate to calculate the total symptom score for a specific disease
 total_score(Disease, Score) :-
     findall(SymptomScore,
             (symptom_of(Disease, Symptom),
-             symptom_score(Disease, Symptom, SymptomScore)
+             symptom_score(Disease, Symptom, SymptomScore),nl
             ),
             Scores
            ),
@@ -139,7 +139,8 @@ disease_risk([Disease | RestDiseases], [Risk | RestRisks]) :-
     write('Your risk for '), write(Disease), write(' is '), write(Risk), nl,
     disease_risk(RestDiseases, RestRisks).
 
-%
+% Generates a list of potential diseases given the patient's HPI and
+% Chief Complaint
 identify_potential_disease(Diseases, Complaint, Causes) :-
     findall(Disease,
             (cause_of(Disease, Cause),
@@ -148,6 +149,6 @@ identify_potential_disease(Diseases, Complaint, Causes) :-
             ),
             DiseasesWithRepeats
            ),
-    list_to_set(DiseasesWithRepeats, Diseases),
+    list_to_set(DiseasesWithRepeats, Diseases), nl,
     write('You may have the following diseases: '), write(Diseases), nl.
 
