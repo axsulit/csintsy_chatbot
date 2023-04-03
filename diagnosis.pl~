@@ -73,8 +73,17 @@ cause_of(hepatitis_b, sexually_active).
 
 :- dynamic checked_symptoms/1.
 :- dynamic symptom_flag/1.
+:- dynamic risk_scores/1.
+
 checked_symptoms([]).
 symptom_flag(false).
+
+
+
+print_symptoms_helper([]).
+print_symptoms_helper([[Disease, RiskScore]|Rest]) :-
+    write(Disease), write(' (Risk Score: '), write(RiskScore), write(')'), nl,
+    print_symptoms_helper(Rest).
 
 
 % Define a rule to add a symptom to the list with a given severity score.
@@ -120,7 +129,7 @@ symptom_score(Disease, Symptom, Score) :-
 total_score(Disease, Score) :-
     findall(SymptomScore,
             (symptom_of(Disease, Symptom),
-             symptom_score(Disease, Symptom, SymptomScore),nl
+             symptom_score(Disease, Symptom, SymptomScore)
             ),
             Scores
            ),
@@ -131,12 +140,15 @@ disease_risk([Disease | RestDiseases], [Risk | RestRisks]) :-
     findall(Symptom, symptom_of(Disease, Symptom), _),
     total_score(Disease, Score),
     %TO REVISE WEIGHTS
-    (Score =< 0.2 -> Risk = 'very low';
-    Score =< 0.4 -> Risk = low;
-    Score =< 0.6 -> Risk = medium;
-    Score =< 0.8 -> Risk = high;
+    (Score/5 =< 0.2 -> Risk = 'very low';
+    Score/5 =< 0.4 -> Risk = low;
+    Score/5 =< 0.6 -> Risk = medium;
+    Score/5 =< 0.8 -> Risk = high;
     Risk = 'very high'),
-    write('Your risk for '), write(Disease), write(' is '), write(Risk), nl,
+    RiskScore is Score/5,
+    assertz(risk_scores(Disease, RiskScore, Risk)),nl,
+    % write('Your risk for '), write(Disease), write(' is '), write(Risk), nl,
+    listing(risk_scores/1),
     disease_risk(RestDiseases, RestRisks).
 
 % Generates a list of potential diseases given the patient's HPI and
@@ -152,3 +164,14 @@ identify_potential_disease(Diseases, Complaint, Causes) :-
     list_to_set(DiseasesWithRepeats, Diseases), nl,
     write('You may have the following diseases: '), write(Diseases), nl.
 
+
+ % Sort by descending risk score
+compare_by_risk_descending(Order, [_, Score1, _], [_, Score2, _]) :-
+    compare(Order, Score2, Score1).
+
+% Get disease with highest risk score and display it
+get_disease :-
+    findall([Disease, RiskScore], risk_scores(Disease, RiskScore, _), DiseaseScores),
+    sort(DiseaseScores, SortedDiseaseScores, compare_by_risk_descending),
+    [Disease, RiskScore] = SortedDiseaseScores,
+    format('Disease with highest risk score is ~w with a risk score of ~w', [Disease, RiskScore]).

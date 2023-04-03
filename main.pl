@@ -40,6 +40,7 @@ chat :-
     ask_history(PName, Causes),
     identify_potential_disease(Disease, Complaint, Causes),
     disease_risk(Disease, Risk).
+    %get_disease.
 
 run_on_load :-
     chat.

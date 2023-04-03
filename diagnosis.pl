@@ -73,8 +73,17 @@ cause_of(hepatitis_b, sexually_active).
 
 :- dynamic checked_symptoms/1.
 :- dynamic symptom_flag/1.
+:- dynamic risk_scores/1.
+
 checked_symptoms([]).
 symptom_flag(false).
+
+
+
+print_symptoms_helper([]).
+print_symptoms_helper([[Disease, RiskScore]|Rest]) :-
+    write(Disease), write(' (Risk Score: '), write(RiskScore), write(')'), nl,
+    print_symptoms_helper(Rest).
 
 
 % Define a rule to add a symptom to the list with a given severity score.
@@ -130,13 +139,15 @@ disease_risk([], []).
 disease_risk([Disease | RestDiseases], [Risk | RestRisks]) :-
     findall(Symptom, symptom_of(Disease, Symptom), _),
     total_score(Disease, Score),
-    %TO REVISE WEIGHTS
-    (Score =< 0.2 -> Risk = 'very low';
-    Score =< 0.4 -> Risk = low;
-    Score =< 0.6 -> Risk = medium;
-    Score =< 0.8 -> Risk = high;
+    (Score/5 =< 0.2 -> Risk = 'very low';
+    Score/5 =< 0.4 -> Risk = low;
+    Score/5 =< 0.6 -> Risk = medium;
+    Score/5 =< 0.8 -> Risk = high;
     Risk = 'very high'),
-    write('Your risk for '), write(Disease), write(' is '), write(Risk), nl,
+    RiskScore is Score/5,
+    assertz(risk_scores([Disease, RiskScore, Risk])),nl,
+    % write('Your risk for '), write(Disease), write(' is '), write(Risk), nl,
+    listing(risk_scores/1),
     disease_risk(RestDiseases, RestRisks).
 
 % Generates a list of potential diseases given the patient's HPI and
@@ -151,4 +162,3 @@ identify_potential_disease(Diseases, Complaint, Causes) :-
            ),
     list_to_set(DiseasesWithRepeats, Diseases), nl,
     write('You may have the following diseases: '), write(Diseases), nl.
-
