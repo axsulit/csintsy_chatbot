@@ -1,0 +1,72 @@
+% Rules for identifying the history of present illness (HPI)
+
+% Define the causes
+cause(poor_sanitation).
+cause(travel_to_tropical_regions).
+cause(contact_with_bodily_fluids).
+cause(sexually_active).
+cause(contaminated_food_or_beverages).
+cause(use_of_illegal_drugs).
+cause(has_chronic_liver_diseases).
+cause(has_hiv_or_aids).
+cause(exposure_to_people_with_TB).
+cause(exposure_to_people_with_flu).
+cause(living_or_working_in_tight_places).
+cause(recently_outdoors_with_poor_sanitation_and_hot_temperatures).
+cause(possible_exposure_to_animal_fluids).
+
+% Define the possible answers for each cause
+answer(poor_sanitation, [yes, no]).
+answer(travel_to_tropical_regions, [yes, no]).
+answer(contact_with_bodily_fluids, [yes, no]).
+answer(sexually_active, [yes, no]).
+answer(contaminated_food_or_beverages, [yes, no]).
+answer(use_of_illegal_drugs, [yes, no]).
+answer(has_chronic_liver_diseases, [yes, no]).
+answer(has_hiv_or_aids, [yes, no]).
+answer(exposure_to_people_with_TB, [yes, no]).
+answer(exposure_to_people_with_flu, [yes, no]).
+answer(living_or_working_in_tight_places, [yes, no]).
+answer(recently_outdoors_with_poor_sanitation_and_hot_temperatures, [yes, no]).
+answer(possible_exposure_to_animal_fluids, [yes, no]).
+
+
+%TODO: Redo prompt display to prevent repetitive display
+% Identify risks
+ask(Patient, Cause, Answer) :-
+    % get cause
+    cause(Cause),
+    % get answer choices
+    answer(Cause, Options),
+    % display prompt
+    write(Patient), write(', please answer the following question:'), nl,
+    write(Cause), write('?'), nl,
+    write('Possible answers are: '), write(Options), nl,
+    read(Answer),
+    validate_answer(Answer, Options).
+
+% Validate the answer
+validate_answer(Answer, Options) :-
+    member(Answer, Options),
+    !.
+validate_answer(Answer, _) :-
+    write('Invalid answer: '), write(Answer), write('.'), nl,
+    fail.
+
+% Ask all the questions and store the positive answers in the knowledge base
+ask_history(Patient, Causes) :-
+    chief_complaint(Complaint)
+    assertz(symptom(Patient, Com))
+    findall(Cause, (
+        ask(Patient, Cause, Answer),
+        Answer == yes, % Only store positive answers
+        assertz(symptom(Patient, Cause))
+    ),Causes).
+    % FOR CHECKING
+    % write(Causes), nl,
+    % write('Done with ask_history'),nl.
+
+
+
+
+
