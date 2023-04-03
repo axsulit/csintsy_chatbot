@@ -60,7 +60,7 @@ cause_of(leptospirosis, contaminated_food_or_beverages).
 
 symptom_of(hepatitis_b, fever).
 symptom_of(hepatitis_b, fatigue).
-symptom_of(hepatitis_b, loss_of_appetite).
+symptom_of(hepatitis_b, lack_of_appetite).
 symptom_of(hepatitis_b, nausea).
 symptom_of(hepatitis_b, vomiting).
 symptom_of(hepatitis_b, abdominal_pain).
@@ -77,46 +77,44 @@ checked_symptoms([]).
 symptom_flag(false).
 
 
-print_symptoms_helper([]).
-print_symptoms_helper([[Symptom, SeverityScore]|Rest]) :-
-    write(Symptom), write(' (Severity Score: '), write(SeverityScore), write(')'), nl,
-    print_symptoms_helper(Rest).
-
-
 % Define a rule to add a symptom to the list with a given severity score.
 add_symptom(Disease,Symptom, SeverityScore) :-
     (not(symptom_flag(Symptom)), symptom_of(Disease, Symptom)),
     retract(checked_symptoms(Symptoms)),
     asserta(checked_symptoms([[Symptom, SeverityScore]|Symptoms])),
-    asserta(symptom_flag(Symptom)),
-    print_symptoms_helper(Symptoms).
-
+    asserta(symptom_flag(Symptom)).
 
 % Define the predicate to ask the user about symptom severity for a specific disease
 ask_symptom_severity(Symptom, Severity) :-
     format("On a scale of 0 to 4, how severe is your ~w? ", [Symptom]),
     read(Severity).
 
+% Display a prompt to ask if the user is experiencing a particular
+% symptom
 ask_symptom(Symptom, Answer) :-
-    %format("Are you experiencing ~w? ", [Symptom]),
-   % read(Answer).
-    (member([Symptom,_], checked_symptoms) ->
-        Answer = no % symptom already checked, set answer to yes
-    ;
-        format("Are you experiencing ~w? ", [Symptom]),
-        read(Answer)
-    ).
+    format("Are you experiencing ~w? ", [Symptom]),
+    read(Answer).
 
 symptom_score(Disease, Symptom, Score) :-
-    ask_symptom(Symptom, Answer),
-    (Answer == yes ->
-    ask_symptom_severity(Symptom, Severity)
-     ;
-    Severity is 0)
-    ),
-    weight(Severity, Disease, Score),
-    add_symptom(Disease, Symptom, Score),
-    write(Symptom), write(Score),nl.
+    checked_symptoms(List),
+    % Specific symptom has not yet been asked
+    (not(member([Symptom,_], List)) ->
+
+       ask_symptom(Symptom, Answer),
+
+       (Answer == yes ->
+           ask_symptom_severity(Symptom, Severity)
+       ;
+           Severity is 0
+       ),
+       weight(Severity, Disease, Score),
+       add_symptom(Disease, Symptom, Score)
+
+    ;
+       member([Symptom, Score], List)
+
+    ), nl, nl.
+
 
 % Define the predicate to calculate the total symptom score for a specific disease
 total_score(Disease, Score) :-
@@ -141,7 +139,7 @@ disease_risk([Disease | RestDiseases], [Risk | RestRisks]) :-
     write('Your risk for '), write(Disease), write(' is '), write(Risk), nl,
     disease_risk(RestDiseases, RestRisks).
 
-
+%
 identify_potential_disease(Diseases, Complaint, Causes) :-
     findall(Disease,
             (cause_of(Disease, Cause),

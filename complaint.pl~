@@ -3,11 +3,11 @@ get_chief_complaint(1, 'fever').
 get_chief_complaint(2, 'pain').
 get_chief_complaint(3, 'nausea').
 get_chief_complaint(4, 'diarrhea').
-get_chief_complaint(5, 'Constipation').
-get_chief_complaint(6, 'Jaundice').
-get_chief_complaint(7, 'Rash').
-get_chief_complaint(8, 'Itching').
-get_chief_complaint(9, 'Cough').
+get_chief_complaint(5, 'constipation').
+get_chief_complaint(6, 'jaundice').
+get_chief_complaint(7, 'rash').
+get_chief_complaint(8, 'itching').
+get_chief_complaint(9, 'cough').
 
 % define valid choices for input in Pain
 get_pain(1, 'Head').
@@ -47,3 +47,6 @@ chief_complaint(Complaint) :-
         true
 
     ).
+
+
+%TODO: add part to get severity of chief complaint

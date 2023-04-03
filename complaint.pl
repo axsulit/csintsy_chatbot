@@ -1,3 +1,4 @@
+% TODO: increase list of CCs
 % define valid choices for input in complaint
 get_chief_complaint(1, 'fever').
 get_chief_complaint(2, 'pain').
@@ -9,6 +10,8 @@ get_chief_complaint(7, 'rash').
 get_chief_complaint(8, 'itching').
 get_chief_complaint(9, 'cough').
 
+
+% Anne - what is this for
 % define valid choices for input in Pain
 get_pain(1, 'Head').
 get_pain(2, 'Muscle').
@@ -47,3 +50,6 @@ chief_complaint(Complaint) :-
         true
 
     ).
+
+
+%TODO: add part to get severity of chief complaint
