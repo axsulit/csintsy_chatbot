@@ -6,6 +6,21 @@ weight(3, _, 0.8).
 weight(4, _, 1).
 
 % Define the symptoms and causes for each disease
+
+symptom_of(typhoid_fever, fever).
+symptom_of(typhoid_fever, headache).
+symptom_of(typhoid_fever, body_aches).
+symptom_of(typhoid_fever, joint_pain).
+symptom_of(typhoid_fever, chest_pain).
+symptom_of(typhoid_fever, fatigue).
+symptom_of(typhoid_fever, cough).
+symptom_of(typhoid_fever, constipation).
+symptom_of(typhoid_fever, lack_of_appetite).
+symptom_of(typhoid_fever, upset_stomach).
+symptom_of(typhoid_fever, abdominal_pain).
+symptom_of(typhoid_fever, diarrhea).
+symptom_of(typhoid_fever, rash).
+
 symptom_of(hepatitis_a, jaundice).
 symptom_of(hepatitis_a, lack_of_appetite).
 symptom_of(hepatitis_a, upset_stomach).
@@ -21,6 +36,11 @@ cause_of(hepatitis_a, poor_sanitation).
 cause_of(hepatitis_a, sexually_active).
 cause_of(hepatitis_a, contact_with_bodily_fluids).
 cause_of(hepatitis_a, contaminated_food_or_beverages).
+
+symptom_of(tuberculosis, cough).
+symptom_of(tuberculosis, cough_with_blood).
+symptom_of(tuberculosis, chest_pain).
+symptom_of(tuberculosis, ).
 
 symptom_of(influenza, fever).
 symptom_of(influenza, cough).
