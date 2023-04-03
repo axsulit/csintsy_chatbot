@@ -35,10 +35,10 @@ get_patient_name(PName) :-
 chat :-
     write('Hello! I am a Medical Chatbot designed to give you an initial diagnosis.\nPlease be informed of our diagnostic process: (1) Patient Data (2) Symptoms (3) Diagnosis.\n\n'), nl,
     ask_patient_info,
-    chief_complaint(Complaint),
+    chief_complaint(Complaint, Severity),
     get_patient_name(PName),
     ask_history(PName, Causes),
-    identify_potential_disease(Disease, Complaint, Causes),
+    identify_potential_disease(Disease, Complaint, Severity, Causes),
     disease_risk(Disease, Risk).
     %get_disease.
 

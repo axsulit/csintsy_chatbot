@@ -152,7 +152,9 @@ disease_risk([Disease | RestDiseases], [Risk | RestRisks]) :-
 
 % Generates a list of potential diseases given the patient's HPI and
 % Chief Complaint
-identify_potential_disease(Diseases, Complaint, Causes) :-
+identify_potential_disease(Diseases, Complaint, Severity, Causes) :-
+    weight(Severity, _, Score),
+    add_symptom(_, Complaint, Score),
     findall(Disease,
             (cause_of(Disease, Cause),
              member(Cause, Causes),

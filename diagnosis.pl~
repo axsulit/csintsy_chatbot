@@ -139,21 +139,22 @@ disease_risk([], []).
 disease_risk([Disease | RestDiseases], [Risk | RestRisks]) :-
     findall(Symptom, symptom_of(Disease, Symptom), _),
     total_score(Disease, Score),
-    %TO REVISE WEIGHTS
     (Score/5 =< 0.2 -> Risk = 'very low';
     Score/5 =< 0.4 -> Risk = low;
     Score/5 =< 0.6 -> Risk = medium;
     Score/5 =< 0.8 -> Risk = high;
     Risk = 'very high'),
     RiskScore is Score/5,
-    assertz(risk_scores(Disease, RiskScore, Risk)),nl,
+    assertz(risk_scores([Disease, RiskScore, Risk])),nl,
     % write('Your risk for '), write(Disease), write(' is '), write(Risk), nl,
     listing(risk_scores/1),
     disease_risk(RestDiseases, RestRisks).
 
 % Generates a list of potential diseases given the patient's HPI and
 % Chief Complaint
-identify_potential_disease(Diseases, Complaint, Causes) :-
+identify_potential_disease(Diseases, Complaint, Severity, Causes) :-
+    weight(Severity, Disease, Score),
+    add_symptom(_, Complaint, Score),
     findall(Disease,
             (cause_of(Disease, Cause),
              member(Cause, Causes),
@@ -163,15 +164,3 @@ identify_potential_disease(Diseases, Complaint, Causes) :-
            ),
     list_to_set(DiseasesWithRepeats, Diseases), nl,
     write('You may have the following diseases: '), write(Diseases), nl.
-
-
- % Sort by descending risk score
-compare_by_risk_descending(Order, [_, Score1, _], [_, Score2, _]) :-
-    compare(Order, Score2, Score1).
-
-% Get disease with highest risk score and display it
-get_disease :-
-    findall([Disease, RiskScore], risk_scores(Disease, RiskScore, _), DiseaseScores),
-    sort(DiseaseScores, SortedDiseaseScores, compare_by_risk_descending),
-    [Disease, RiskScore] = SortedDiseaseScores,
-    format('Disease with highest risk score is ~w with a risk score of ~w', [Disease, RiskScore]).
