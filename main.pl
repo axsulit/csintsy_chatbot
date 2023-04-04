@@ -14,13 +14,25 @@
 ask_patient_info :-
     write('PART 1: Please enter the patient information: '), nl,
     write('Name: '), read(PName),
-    write('Age: '), read(Age),
-    write('Gender (male/female): '), read(Gender),
-    write('Height (in cm): '), read(Height),
-    write('Weight (in kg): '), read(Weight),
-    write('Blood Pressure (in mmHg): '), read(BP),
-    write('Do you smoke? Yes/No: '), read(Smoker),
-    write('Do you drink alcohol? Yes/No: '), read(Alcoholic),
+    repeat,
+	write('Age: '), read(Age),
+	(integer(Age) -> ! ; write('Please enter a valid integer for age.'), nl, fail),
+    repeat,
+	write('Gender (m/f): '), read(Gender),
+	 (member(Gender, [m, f]) -> ! ; write('Please enter "m" or "f" for gender.'), nl, fail),
+    repeat,
+        write('Height (in cm): '), read(Height),
+        (integer(Height) -> ! ; write('Please enter a valid integer for height.'), nl, fail),
+    repeat,
+        write('Weight (in kg): '), read(Weight),
+        (integer(Weight) -> ! ; write('Please enter a valid integer for weight.'), nl, fail),
+        write('Blood Pressure (in mmHg): '), read(BP),
+    repeat,
+        write('Do you smoke? (yes/no): '), read(Smoker),
+        (member(Smoker, [yes, no]) -> ! ; write('Please enter "yes" or "no" for smoking status.'), nl, fail),
+    repeat,
+        write('Do you drink alcohol? (yes/no): '), read(Alcoholic),
+        (member(Alcoholic, [yes, no]) -> ! ; write('Please enter "yes" or "no" for alcohol consumption.'), nl, fail),
     assert(patient_info([name=PName,age=Age, gender=Gender, height=Height, weight=Weight, bp=BP, smokes=Smoker, drinks=Alcoholic])),
     write('Patient information stored successfully.'), nl.
 
@@ -33,13 +45,28 @@ get_patient_name(PName) :-
     patient_info([name=PName | _]).
 
 chat :-
-    write('Hello! I am a Medical Chatbot designed to give you an initial diagnosis.\nPlease be informed of our diagnostic process: (1) Patient Data (2) Symptoms (3) Diagnosis.\n\n'), nl,
+    write('Hello! I am a Medical Chatbot designed to give you an initial diagnosis.'), nl,
+    write('Please be informed of our diagnostic process: (1) Patient Data (2) Symptoms (3) Diagnosis.\n\n'), nl,
     ask_patient_info,
     chief_complaint(Complaint, Severity),
     get_patient_name(PName),
     ask_history(PName, Causes),
     identify_potential_disease(Disease, Complaint, Severity, Causes),
-    disease_risk(Disease, Risk).
+    disease_risk(Disease, Risk),
+    write('Present this information to a medical facility for further testing and diagnosis:'), nl,
+    patient_info([name=PName, age=Age, gender=Gender, height=Height, weight=Weight, bp=BP, smokes=Smoker, drinks=Alcoholic]),
+    write('Name: '), write(PName), nl,
+    write('Age: '), write(Age), nl,
+    write('Gender: '), write(Gender), nl,
+    write('Height: '), write(Height), write(' cm'), nl,
+    write('Weight: '), write(Weight), write(' kg'), nl,
+    write('Blood Pressure: '), write(BP), write(' mmHg'), nl,
+    write('Smoker: '), write(Smoker), nl,
+    write('Alcoholic: '), write(Alcoholic), nl,
+    write('Chief Complaint: '), write(Complaint), nl,
+    write('Summary of patient history: '), write(Causes), nl,
+    write('Based on the symptoms you provided, our initial diagnosis is: '), write(Disease), nl,
+    write('The risk level for this disease is: '), write(Risk), nl.
     %get_disease.
 
 run_on_load :-
