@@ -223,7 +223,7 @@ disease_risk([Disease | RestDiseases], [Risk | RestRisks]) :-
     listing(risk_scores/1),
     disease_risk(RestDiseases, RestRisks).
 
-% Generates a list of potential diseases given the patient's HPI and
+% Generates a list of potential diseases given the patients HPI and
 % Chief Complaint
 identify_potential_disease(Diseases, Complaint, Severity, Causes) :-
     weight(Severity, _, Score),

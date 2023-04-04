@@ -14,6 +14,8 @@ cause(exposure_to_people_with_flu).
 cause(living_or_working_in_tight_places).
 cause(recently_outdoors_with_poor_sanitation_and_hot_temperatures).
 cause(possible_exposure_to_animal_fluids).
+cause(recently_contacted_with_soil).
+cause(has_chronic_pulmonary_diseases).
 
 % Define the possible answers for each cause
 answer(poor_sanitation, [yes, no]).
@@ -29,6 +31,8 @@ answer(exposure_to_people_with_flu, [yes, no]).
 answer(living_or_working_in_tight_places, [yes, no]).
 answer(recently_outdoors_with_poor_sanitation_and_hot_temperatures, [yes, no]).
 answer(possible_exposure_to_animal_fluids, [yes, no]).
+answer(recently_contacted_with_soil, [yes, no]).
+answer(has_chronic_pulmonary_diseases, [yes, no]).
 
 
 %TODO: Redo prompt display to prevent repetitive display
