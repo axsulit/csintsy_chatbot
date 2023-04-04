@@ -169,7 +169,7 @@ add_symptom(Disease,Symptom, SeverityScore) :-
 
 % Define the predicate to ask the user about symptom severity for a specific disease
 ask_symptom_severity(Symptom, Severity) :-
-    format("On a scale of 0 to 4, how severe is your ~w? ", [Symptom]),
+    format("On a scale of 1 to 4, how severe is your ~w? ", [Symptom]),
     read(Severity).
 
 % Display a prompt to ask if the user is experiencing a particular
