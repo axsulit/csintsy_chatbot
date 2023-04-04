@@ -12,17 +12,8 @@ get_chief_complaint(10, joint_pain).
 get_chief_complaint(11, stomach_pain).
 get_chief_complaint(12, abdominal_pain).
 
-% Anne - what is this for
-% define valid choices for input in Pain
-get_pain(1, 'Head').
-get_pain(2, 'Muscle').
-get_pain(3, 'Joints').
-get_pain(4, 'Stomach').
-get_pain(5, 'Abdomen').
-get_pain(6, 'Chest').
-
 % get chief complaint
-chief_complaint(Complaint) :-
+chief_complaint(Complaint, Severity) :-
     write('Select your main reason for consultation:'), nl,
     write('1  | Fever'), nl,
     write('2  | Nausea'), nl,
@@ -43,4 +34,3 @@ chief_complaint(Complaint) :-
     read(Severity).
 
 
-%TODO: add part to get severity of chief complaint

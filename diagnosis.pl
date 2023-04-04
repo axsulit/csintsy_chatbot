@@ -12,8 +12,6 @@ symptom_of(typhoid_fever, fatigue).
 symptom_of(typhoid_fever, cough).
 symptom_of(typhoid_fever, constipation).
 symptom_of(typhoid_fever, body_aches).
-cause_of(hepatitis_a, contaminated_food_or_beverages).
-cause_of(hepatitis_a, travel_to_tropical_regions).
 
 symptom_of(hepatitis_a, jaundice).
 symptom_of(hepatitis_a, lack_of_appetite).
@@ -26,10 +24,6 @@ symptom_of(hepatitis_a, light_colored_stools).
 symptom_of(hepatitis_a, diarrhea).
 symptom_of(hepatitis_a, joint_pain).
 symptom_of(hepatitis_a, fatigue).
-cause_of(hepatitis_a, poor_sanitation).
-cause_of(hepatitis_a, sexually_active).
-cause_of(hepatitis_a, contact_with_bodily_fluids).
-cause_of(hepatitis_a, contaminated_food_or_beverages).
 
 symptom_of(active_TB, cough_with_blood).
 symptom_of(active_TB, cough_with_phlegm).
@@ -43,9 +37,6 @@ symptom_of(active_TB, weight_loss).
 symptom_of(active_TB, lack_of_appetite).
 symptom_of(active_TB, fatigue).
 symptom_of(active_TB, weakness).
-cause_of(active_TB, exposure_to_people_with_TB).
-cause_of(active_TB, travel_to_tropical_regions).
-cause_of(active_TB, living_or_working_in_tight_places).
 
 symptom_of(leptospirosis, fever).
 symptom_of(leptospirosis, headache).
@@ -57,8 +48,6 @@ symptom_of(leptospirosis, red_eyes).
 symptom_of(leptospirosis, abdominal_pain).
 symptom_of(leptospirosis, diarrhea).
 symptom_of(leptospirosis, rash).
-cause_of(leptospirosis, possible_exposure_to_animal_fluids).
-cause_of(leptospirosis, contaminated_food_or_beverages).
 
 symptom_of(dengue, nausea).
 symptom_of(dengue, vomiting).
@@ -69,7 +58,6 @@ symptom_of(dengue, abdominal_pain).
 symptom_of(dengue, blood_in_urine_and/or_feces).
 symptom_of(dengue, fatigue).
 symptom_of(dengue, weakness).
-cause_of(dengue, travel_to_tropical_regions).
 
 symptom_of(influenza, fever).
 symptom_of(influenza, cough).
@@ -80,7 +68,6 @@ symptom_of(influenza, headache).
 symptom_of(influenza, fatigue).
 symptom_of(influenza, vomiting).
 symptom_of(influenza, diarrhea).
-cause_of(influenza, exposure_to_people_with_flu).
 
 symptom_of(pneumonia, breathing_pain).
 symptom_of(pneumonia, coughing_pain).
@@ -92,7 +79,6 @@ symptom_of(pneumonia, nausea).
 symptom_of(pneumonia, vomiting).
 symptom_of(pneumonia, diarrhea).
 symptom_of(pneumonia, difficulty_breathing).
-cause_of(pneumonia, has_hiv_or_aids).
 symptom_of(pneumonia, has_chronic_pulmonary_diseases).
 
 symptom_of(hepatitis_b, fever).
@@ -105,8 +91,6 @@ symptom_of(hepatitis_b, dark_urine).
 symptom_of(hepatitis_b, clay_colored_stool).
 symptom_of(hepatitis_b, joint_pain).
 symptom_of(hepatitis_b, jaundice).
-cause_of(hepatitis_b, contact_with_bodily_fluids).
-cause_of(hepatitis_b, sexually_active).
 
 symptom_of(malaria, fever).
 symptom_of(malaria, chills).
@@ -120,7 +104,6 @@ symptom_of(malaria, cough).
 symptom_of(malaria, diarrhea).
 symptom_of(malaria, nausea).
 symptom_of(malaria, vomiting).
-cause_of(malaria, travel_to_tropical_regions).
 
 symptom_of(schistosomiasis, rash).
 symptom_of(schistosomiasis, itchy_skin).
@@ -131,7 +114,6 @@ symptom_of(schistosomiasis, difficulty_urinating).
 symptom_of(schistosomiasis, enlarged_liver).
 symptom_of(schistosomiasis, cough).
 symptom_of(schistosomiasis, fever).
-cause_of(schistosomiasis, possible_exposure_to_animal_fluids).
 
 symptom_of(hookworm, itchy_skin).
 symptom_of(hookworm, rash).
@@ -141,8 +123,27 @@ symptom_of(hookworm, lack_of_appetite).
 symptom_of(hookworm, weight_loss).
 symptom_of(hookworm, fatigue).
 symptom_of(hookworm, anemia).
+
+cause_of(typhoid_fever, contaminated_food_or_beverages).
+cause_of(typhoid_fever, travel_to_tropical_regions).
+cause_of(hepatitis_a, poor_sanitation).
+cause_of(hepatitis_a, sexually_active).
+cause_of(hepatitis_a, contact_with_bodily_fluids).
+cause_of(hepatitis_a, contaminated_food_or_beverages).
+cause_of(active_TB, exposure_to_people_with_TB).
+cause_of(active_TB, travel_to_tropical_regions).
+cause_of(active_TB, living_or_working_in_tight_places).
+cause_of(leptospirosis, possible_exposure_to_animal_fluids).
+cause_of(leptospirosis, contaminated_food_or_beverages).
+cause_of(dengue, travel_to_tropical_regions).
+cause_of(influenza, exposure_to_people_with_flu).
+cause_of(pneumonia, has_hiv_or_aids).
+cause_of(hepatitis_b, contact_with_bodily_fluids).
+cause_of(hepatitis_b, sexually_active).
+cause_of(malaria, travel_to_tropical_regions).
+cause_of(schistosomiasis, possible_exposure_to_animal_fluids).
 cause_of(hookworm, recently_outdoors_with_poor_sanitation_and_hot_temperatures).
-cause_of(hookworm, recently_contacted_with_soil)
+cause_of(hookworm, recently_contacted_with_soil).
 
 :- dynamic checked_symptoms/1.
 :- dynamic symptom_flag/1.

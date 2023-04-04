@@ -1,25 +1,16 @@
 % define valid choices for input in complaint
-get_chief_complaint(1, fever).
-get_chief_complaint(2, nausea).
-get_chief_complaint(3, diarrhea).
-get_chief_complaint(4, constipation).
-get_chief_complaint(5, jaundice).
-get_chief_complaint(6, rash).
-get_chief_complaint(7, itching).
-get_chief_complaint(8, cough).
-get_chief_complaint(9, muscle_pain).
-get_chief_complaint(10, joint_pain).
-get_chief_complaint(11, stomach_pain).
-get_chief_complaint(12, abdominal_pain).
-
-% Anne - what is this for
-% define valid choices for input in Pain
-get_pain(1, 'Head').
-get_pain(2, 'Muscle').
-get_pain(3, 'Joints').
-get_pain(4, 'Stomach').
-get_pain(5, 'Abdomen').
-get_pain(6, 'Chest').
+get_chief_complaint(1, 'fever').
+get_chief_complaint(2, 'nausea').
+get_chief_complaint(3, 'diarrhea').
+get_chief_complaint(4, 'constipation').
+get_chief_complaint(5, 'jaundice').
+get_chief_complaint(6, 'rash').
+get_chief_complaint(7, 'itching').
+get_chief_complaint(8, 'cough').
+get_chief_complaint(9, 'muscle_pain').
+get_chief_complaint(10, 'joint_pain').
+get_chief_complaint(11, 'stomach_pain').
+get_chief_complaint(12, 'abdominal_pain').
 
 % get chief complaint
 chief_complaint(Complaint, Severity) :-
@@ -43,4 +34,3 @@ chief_complaint(Complaint, Severity) :-
     read(Severity).
 
 
-%TODO: add part to get severity of chief complaint
