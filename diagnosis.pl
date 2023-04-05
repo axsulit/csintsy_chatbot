@@ -229,6 +229,14 @@ identify_potential_disease(Diseases, Complaint, Severity, Causes) :-
     list_to_set(DiseasesWithRepeats, Diseases), nl,
     write('TO REMOVE: You may have the following diseases: '), write(Diseases), nl, nl.
 
+identify_disease_given_complaint(Complaint, Cause) :-
+    findall(Disease, 
+            (get_chief_complaint(Complaint),
+            cause(Cause)
+            ),
+            DiseaseComplaint)
+           ),nl.
+
 get_disease :-
    findall([Disease, RiskScore, Risk], risk_scores([Disease, RiskScore,
    Risk]), Scores),
