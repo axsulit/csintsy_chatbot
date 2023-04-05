@@ -12,7 +12,7 @@
 
 % ask for patient information and store it in patient_info
 ask_patient_info :-
-    write('Name: '), read(PName),
+    write('Full Name: '), read(PName),
     repeat,
 	write('Age: '), read(Age),
 	(integer(Age) -> ! ; write('Please enter a valid integer for age.'), nl, fail),
@@ -25,13 +25,13 @@ ask_patient_info :-
     repeat,
         write('Weight (in kg): '), read(Weight),
         (integer(Weight) -> ! ; write('Please enter a valid integer for weight.'), nl, fail),
-        write('Blood Pressure (in mmHg): '), read(BP),
+        write('Blood Pressure (systic/diastolic): '), read(BP),
     repeat,
         write('Do you smoke? (yes/no): '), read(Smoker),
         (member(Smoker, [yes, no]) -> ! ; write('Please enter "yes" or "no" for smoking status.'), nl, fail),
     repeat,
-        write('Do you drink alcohol? (yes/no): '), read(Alcoholic),
-        (member(Alcoholic, [yes, no]) -> ! ; write('Please enter "yes" or "no" for alcohol consumption.'), nl, fail),
+        write('How often do you drink alcohol? (never/occasional/moderate/excessive): '), read(Alcoholic),
+        (member(Alcoholic, [never, occasional, moderate, excessive]) -> ! ; write('Please enter a valid answer for alcohol consumption.'), nl, fail),
     assert(patient_info([name=PName,age=Age, sex=Sex, height=Height, weight=Weight, bp=BP, smokes=Smoker, drinks=Alcoholic])),nl,nl.
 
 % Display patient_info (FOR CHECKING)
@@ -72,7 +72,7 @@ chat :-
     write('Weight: '), write(Weight), write(' kg'), nl,
     write('Blood Pressure: '), write(BP), write(' mmHg'), nl,
     write('Smoker: '), write(Smoker), nl,
-    write('Drinks Alcohol: '), write(Alcoholic), nl,
+    write('Alcohol Consumption: '), write(Alcoholic), nl,
     write('Chief Complaint: '), write(Complaint), nl,
     write('Summary of patient history: '), write(Causes), nl,
     write('Based on the symptoms you provided, our initial diagnosis is: '), write(Disease), nl,
