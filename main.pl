@@ -72,7 +72,7 @@ chat :-
     write('Weight: '), write(Weight), write(' kg'), nl,
     write('Blood Pressure: '), write(BP), write(' mmHg'), nl,
     write('Smoker: '), write(Smoker), nl,
-    write('Alcoholic: '), write(Alcoholic), nl,
+    write('Drinks Alcohol: '), write(Alcoholic), nl,
     write('Chief Complaint: '), write(Complaint), nl,
     write('Summary of patient history: '), write(Causes), nl,
     write('Based on the symptoms you provided, our initial diagnosis is: '), write(Disease), nl,
