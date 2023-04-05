@@ -28,21 +28,29 @@ ask_severity(Complaint, Severity) :-
         fail
     ).
 
+validate_input(Input) :-
+    Input >= 1, Input =< 12.
+
 % get chief complaint
 chief_complaint(Complaint, Severity) :-
-    write('1  | Fever'), nl,
-    write('2  | Nausea'), nl,
-    write('3  | Diarrhea'), nl,
-    write('4  | Constipation'), nl,
-    write('5  | Jaundice'), nl,
-    write('6  | Rash'), nl,
-    write('7  | Itching'), nl,
-    write('8  | Cough'), nl,
-    write('9  | Muscle Pain'), nl,
-    write('10 | Joint Pain'), nl,
-    write('11 | Stomach Pain'), nl,
-    write('12 | Abdominal Pain'), nl,
-    read(Input),
+    repeat,
+       write('1  | Fever'), nl,
+       write('2  | Nausea'), nl,
+       write('3  | Diarrhea'), nl,
+       write('4  | Constipation'), nl,
+       write('5  | Jaundice'), nl,
+       write('6  | Rash'), nl,
+       write('7  | Itching'), nl,
+       write('8  | Cough'), nl,
+       write('9  | Muscle Pain'), nl,
+       write('10 | Joint Pain'), nl,
+       write('11 | Stomach Pain'), nl,
+       write('12 | Abdominal Pain'), nl,
+       read(Input),
+       (validate_input(Input) ->
+          !
+       ;
+          write('Invalid input. Please enter a value from 1-12.'), nl, fail),
     get_chief_complaint(Input, Complaint),nl,
     write('Your chief complaint is: '), write(Complaint), nl,
     ask_severity(Complaint, Severity).
