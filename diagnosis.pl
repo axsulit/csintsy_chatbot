@@ -152,14 +152,6 @@ cause_of(hookworm, recently_contacted_with_soil).
 checked_symptoms([]).
 symptom_flag(false).
 
-
-
-print_symptoms_helper([]).
-print_symptoms_helper([[Disease, RiskScore]|Rest]) :-
-    write(Disease), write(' (Risk Score: '), write(RiskScore), write(')'), nl,
-    print_symptoms_helper(Rest).
-
-
 % Define a rule to add a symptom to the list with a given severity score.
 add_symptom(Disease,Symptom, SeverityScore) :-
     (not(symptom_flag(Symptom)), symptom_of(Disease, Symptom)),
@@ -220,8 +212,6 @@ disease_risk([Disease | RestDiseases], [Risk | RestRisks]) :-
     Risk = 'very high'),
     RiskScore is Score/5,
     assertz(risk_scores([Disease, RiskScore, Risk])),nl,
-    % write('Your risk for '), write(Disease), write(' is '), write(Risk), nl,
-    listing(risk_scores/1),
     disease_risk(RestDiseases, RestRisks).
 
 % Generates a list of potential diseases given the patients HPI and
@@ -237,5 +227,10 @@ identify_potential_disease(Diseases, Complaint, Severity, Causes) :-
             DiseasesWithRepeats
            ),
     list_to_set(DiseasesWithRepeats, Diseases), nl,
-    write('You may have the following diseases: '), write(Diseases), nl,
-    write('You may refer to a medical facility to obtain a more accurate diagnosis.'), nl.
+    write('TO REMOVE: You may have the following diseases: '), write(Diseases), nl, nl.
+
+get_disease :-
+   findall([Disease, RiskScore, Risk], risk_scores([Disease, RiskScore,
+   Risk]), Scores),
+   write('Scores: '), write(Scores),nl.
+

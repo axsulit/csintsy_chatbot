@@ -14,7 +14,6 @@ get_chief_complaint(12, 'abdominal_pain').
 
 % get chief complaint
 chief_complaint(Complaint, Severity) :-
-    write('Select your main reason for consultation:'), nl,
     write('1  | Fever'), nl,
     write('2  | Nausea'), nl,
     write('3  | Diarrhea'), nl,
@@ -28,9 +27,9 @@ chief_complaint(Complaint, Severity) :-
     write('11 | Stomach Pain'), nl,
     write('12 | Abdominal Pain'), nl,
     read(Input),
-    get_chief_complaint(Input, Complaint),
+    get_chief_complaint(Input, Complaint),nl,
     write('Your chief complaint is: '), write(Complaint), nl,
     format("On a scale of 0 to 4, how severe is your ~w? ", [Complaint]),
-    read(Severity).
+    read(Severity),nl.
 
 

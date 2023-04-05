@@ -13,11 +13,6 @@ symptom_of(typhoid_fever, cough).
 symptom_of(typhoid_fever, constipation).
 symptom_of(typhoid_fever, body_aches).
 
-
-
-
-
-
 symptom_of(hepatitis_a, jaundice).
 symptom_of(hepatitis_a, lack_of_appetite).
 symptom_of(hepatitis_a, upset_stomach).
@@ -150,21 +145,12 @@ cause_of(schistosomiasis, possible_exposure_to_animal_fluids).
 cause_of(hookworm, recently_outdoors_with_poor_sanitation_and_hot_temperatures).
 cause_of(hookworm, recently_contacted_with_soil).
 
-
 :- dynamic checked_symptoms/1.
 :- dynamic symptom_flag/1.
 :- dynamic risk_scores/1.
 
 checked_symptoms([]).
 symptom_flag(false).
-
-
-
-print_symptoms_helper([]).
-print_symptoms_helper([[Disease, RiskScore]|Rest]) :-
-    write(Disease), write(' (Risk Score: '), write(RiskScore), write(')'), nl,
-    print_symptoms_helper(Rest).
-
 
 % Define a rule to add a symptom to the list with a given severity score.
 add_symptom(Disease,Symptom, SeverityScore) :-
@@ -175,7 +161,7 @@ add_symptom(Disease,Symptom, SeverityScore) :-
 
 % Define the predicate to ask the user about symptom severity for a specific disease
 ask_symptom_severity(Symptom, Severity) :-
-    format("On a scale of 0 to 4, how severe is your ~w? ", [Symptom]),
+    format("On a scale of 1 to 4, how severe is your ~w? ", [Symptom]),
     read(Severity).
 
 % Display a prompt to ask if the user is experiencing a particular
@@ -226,11 +212,12 @@ disease_risk([Disease | RestDiseases], [Risk | RestRisks]) :-
     Risk = 'very high'),
     RiskScore is Score/5,
     assertz(risk_scores([Disease, RiskScore, Risk])),nl,
+    %add_score(Disease, RiskScore),
     % write('Your risk for '), write(Disease), write(' is '), write(Risk), nl,
-    listing(risk_scores/1),
+   % listing(risk_scores/1),
     disease_risk(RestDiseases, RestRisks).
 
-% Generates a list of potential diseases given the patient's HPI and
+% Generates a list of potential diseases given the patients HPI and
 % Chief Complaint
 identify_potential_disease(Diseases, Complaint, Severity, Causes) :-
     weight(Severity, _, Score),
@@ -243,5 +230,10 @@ identify_potential_disease(Diseases, Complaint, Severity, Causes) :-
             DiseasesWithRepeats
            ),
     list_to_set(DiseasesWithRepeats, Diseases), nl,
-    write('You may have the following diseases: '), write(Diseases), nl,
-    write('You may refer to a medical facility to obtain a more accurate diagnosis.'), nl.
+    write('TO REMOVE: You may have the following diseases: '), write(Diseases), nl, nl.
+
+get_disease :-
+   findall([Disease, RiskScore, Risk], risk_scores([Disease, RiskScore,
+   Risk]), Scores),
+   write('Scores: '), write(Scores),nl.
+

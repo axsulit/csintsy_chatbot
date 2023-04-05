@@ -37,15 +37,13 @@ answer(has_chronic_pulmonary_diseases, [yes, no]).
 
 %TODO: Redo prompt display to prevent repetitive display
 % Identify risks
-ask(Patient, Cause, Answer) :-
+ask(Cause, Answer) :-
     % get cause
     cause(Cause),
     % get answer choices
     answer(Cause, Options),
     % display prompt
-    write(Patient), write(', please answer the following question:'), nl,
-    write(Cause), write('?'), nl,
-    write('Possible answers are: '), write(Options), nl,
+    write(Cause), write('? (yes/no): '),
     read(Answer),
     validate_answer(Answer, Options).
 
@@ -60,7 +58,7 @@ validate_answer(Answer, _) :-
 % Ask all the questions and store the positive answers in the knowledge base
 ask_history(Patient, Causes) :-
     findall(Cause, (
-        ask(Patient, Cause, Answer),
+        ask(Cause, Answer),
         Answer == yes, % Only store positive answers
         assertz(symptom(Patient, Cause))
     ),Causes).
