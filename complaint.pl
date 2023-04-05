@@ -14,17 +14,17 @@ get_chief_complaint(12, 'abdominal_pain').
 
 % define valid choices for input in severity
 validate_severity(Severity) :-
-    Severity >= 0, Severity =< 4.
+    Severity >= 1, Severity =< 4.
 
 % ask patient for severity input
 ask_severity(Complaint, Severity) :-
     repeat,
-    format("On a scale of 0 to 4, how severe is your ~w? ", [Complaint]),
+    format("On a scale of 1 to 4, how severe is your ~w? ", [Complaint]),
     read(Severity),
     (validate_severity(Severity) ->
         true
     ;
-        write('Invalid input. Please enter a number between 0 and 4.'), nl,
+        write('Invalid input. Please enter a number between 1 and 4.'), nl,
         fail
     ).
 
