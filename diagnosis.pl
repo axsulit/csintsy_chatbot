@@ -235,7 +235,8 @@ identify_disease_given_complaint(Complaint, Cause) :-
             cause(Cause)
             ),
             DiseaseComplaint)
-           ),nl.
+           ),
+     write('Based on your complaints, you may experience the following: '), write(Diseases), nl.
 
 get_disease :-
    findall([Disease, RiskScore, Risk], risk_scores([Disease, RiskScore,
