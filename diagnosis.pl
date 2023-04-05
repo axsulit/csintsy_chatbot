@@ -229,14 +229,34 @@ identify_potential_disease(Diseases, Complaint, Severity, Causes) :-
     list_to_set(DiseasesWithRepeats, Diseases), nl,
     write('TO REMOVE: You may have the following diseases: '), write(Diseases), nl, nl.
 
-identify_disease_given_complaint(Complaint, Cause) :-
-    findall(Disease, 
-            (get_chief_complaint(Complaint),
-            cause(Cause)
-            ),
-            DiseaseComplaint)
-           ),
-     write('Based on your complaints, you may experience the following: '), write(Diseases), nl.
+% Identify potential disease based on chief complaint and causes
+identify_disease_with_CC_and_cause(Disease, Complaint, Severity, Causes) :-
+    % Check for potential diseases based on chief complaint
+    findall(Disease1, 
+            (chief_complaint_disease(Complaint, Severity, Disease1),
+            disease_symptoms(Disease1, Symptoms1), is_subset(Causes, Symptoms1)), 
+            PossibleDiseases1),
+            
+    % Check for potential diseases based on causes
+    findall(Disease2, 
+            (cause_disease(Cause2, Disease2), 
+            member(Cause2, Causes)), 
+            PossibleDiseases2),
+            
+    append(PossibleDiseases1, PossibleDiseases2, PossibleDiseases),
+    
+    % Remove duplicates
+    list_to_set(PossibleDiseases, UniqueDiseases),
+    
+    % Check if there are any potential diseases
+    (UniqueDiseases = [] -> write('Sorry, we could not identify a potential disease based on your symptoms.'), nl, fail ;
+    % If there are potential diseases, select the first one
+    UniqueDiseases = [Disease] -> write('Based on the symptoms you provided, our initial diagnosis is: '), write(Disease), nl ;
+    write('Based on the symptoms you provided, the potential diseases are: '), write(UniqueDiseases), nl,
+    write('Please consult with a medical professional for further diagnosis and treatment.'), nl, fail).
+
+is_subset([], _).
+is_subset([H|T], List) :- member(H, List), is_subset(T, List).
 
 get_disease :-
    findall([Disease, RiskScore, Risk], risk_scores([Disease, RiskScore,
