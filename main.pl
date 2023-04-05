@@ -76,7 +76,7 @@ chat :-
     write('Chief Complaint: '), write(Complaint), nl,
     write('Summary of patient history: '), write(Causes), nl,
     write('Based on the symptoms you provided, our initial diagnosis is: '), write(Disease), nl,
-    write('The risk level for this disease is: '), write(Risk), nl.
+    write('Risk level/s: '), write(Risk), nl.
     %get_disease.
 
 %run_on_load :-
