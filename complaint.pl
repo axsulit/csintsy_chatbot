@@ -12,6 +12,22 @@ get_chief_complaint(10, 'joint_pain').
 get_chief_complaint(11, 'stomach_pain').
 get_chief_complaint(12, 'abdominal_pain').
 
+% define valid choices for input in severity
+validate_severity(Severity) :-
+    Severity >= 0, Severity =< 4.
+
+% ask patient for severity input
+ask_severity(Complaint, Severity) :-
+    repeat,
+    format("On a scale of 0 to 4, how severe is your ~w? ", [Complaint]),
+    read(Severity),
+    (validate_severity(Severity) ->
+        true
+    ;
+        write('Invalid input. Please enter a number between 0 and 4.'), nl,
+        fail
+    ).
+
 % get chief complaint
 chief_complaint(Complaint, Severity) :-
     write('1  | Fever'), nl,
@@ -29,7 +45,5 @@ chief_complaint(Complaint, Severity) :-
     read(Input),
     get_chief_complaint(Input, Complaint),nl,
     write('Your chief complaint is: '), write(Complaint), nl,
-    format("On a scale of 0 to 4, how severe is your ~w? ", [Complaint]),
-    read(Severity),nl.
-
+    ask_severity(Complaint, Severity).
 

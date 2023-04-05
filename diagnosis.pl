@@ -159,10 +159,21 @@ add_symptom(Disease,Symptom, SeverityScore) :-
     asserta(checked_symptoms([[Symptom, SeverityScore]|Symptoms])),
     asserta(symptom_flag(Symptom)).
 
+% define valid choices for input in severity
+validate_severity(Severity) :-
+    Severity >= 0, Severity =< 4.
+
 % Define the predicate to ask the user about symptom severity for a specific disease
 ask_symptom_severity(Symptom, Severity) :-
+    repeat,
     format("On a scale of 1 to 4, how severe is your ~w? ", [Symptom]),
-    read(Severity).
+    read(Severity),
+    (validate_severity(Severity) ->
+        !
+    ;
+        write('Invalid input. Please enter a number between 0 and 4.'), nl,
+        fail
+    ).
 
 % Display a prompt to ask if the user is experiencing a particular
 % symptom
