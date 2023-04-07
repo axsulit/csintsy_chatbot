@@ -52,20 +52,26 @@ chat :-
     identify_potential_disease(Disease, Complaint, Severity, Causes),
 
     write('PART 4: Please answer some additional questions to help me better diagnose you.'),nl,
+    write('If you answer NO, it will be assumed that you do not have a symptom, thus your symptom severity will be considered zero.'),nl,
+    write('If you answer YES, please indicate the severity using the following scale: '),nl,
+    write('1 | Mild'), nl,
+    write('2 | Moderate'), nl,
+    write('3 | Severe'), nl,
+    write('4 | Very Severe'), nl, nl,
     disease_risk(Disease, _),
     get_disease(Disease, Diagnosis, Rating),
 	
 	(
 	   Rating = low ; Rating = 'very low'
-	   -> write('My apologies, based on the information you have provided, I am unable to determine your condition. It is best to consult with a healthcare professional at a large medical facility to perform a proper physical examination and run any necessary tests to provide an accurate diagnosis.')
+	   -> write('My apologies, but I am unable to identify your condition with the information you have provided. It would be best to \nseek the advice of a healthcare professional at a large medical facility who can conduct a thorough physical \nexamination and perform any necessary tests to give you an accurate diagnosis.')
 	   ; 
-		  format('Based on the symptoms you have provided, our initial diagnosis is ~w with ~w risk. \nHowever, it is important to seek medical attention from a healthcare professional for a complete evaluation and treatment plan. \nI recommend scheduling an appointment with a physician or a specialist as soon as possible.\n If your symptoms worsen or you experience any emergency symptoms, please seek immediate medical attention.', [Diagnosis, Rating]) 
-		  %write(Diagnosis), nl,
-		  %write('Risk level: '), write(Rating), nl
+		  format('Based on the symptoms you have described, our initial diagnosis suggests that you have ~w with a ~w risk level. \nNonetheless, it is still advised to see a healthcare professional for a complete evaluation and treatment plan as soon \nas possible. If symptoms worsen or emergency symptoms arise, please seek immediate medical attention.', [Diagnosis, Rating]) 
+		  %write(Diagnosis),
+		  %write('Risk level: '), write(Rating), nl,nl
 	   
 	),
 	
-    write('Should you go to a medical facility, you may present this information for further evaluation:'), nl,
+    write('\n\nShould you go to a medical facility, you may present this information for further evaluation:'), nl,
     write('Name: '), write(PName), nl,
     write('Age: '), write(Age), nl,
     write('Sex: '), write(Sex), nl,
