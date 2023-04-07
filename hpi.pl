@@ -20,8 +20,8 @@ cause(recently_contacted_with_soil).
 question(poor_sanitation, 'Do you have any issues or difficulties maintaining proper hygiene and sanitation practices?').
 question(contaminated_food_or_beverages, 'Have you ingested any food or beverages that may have been contaminated within the past two weeks?').
 question(living_or_working_in_tight_places, 'Have you been residing or employed in cramped or confined spaces?').
-question(sexually_active, 'Have you engaged in sexual activity within the past two weeks?').
-question(contact_with_bodily_fluids, 'Did you have contact with bodily fluids in the last two weeks?').
+question(sexually_active, 'Have you engaged in unprotected sexual activity within the past 6 months?').
+question(contact_with_bodily_fluids, 'Did you have contact with bodily fluids within the last two weeks?').
 question(has_hiv_or_aids, 'Do you have HIV or AIDS?').
 question(has_chronic_liver_diseases, 'Do you have a history of chronic liver diseases?').
 question(has_chronic_pulmonary_diseases, 'Do you have a history of chronic pulmonary disease?').
@@ -30,7 +30,7 @@ question(exposure_to_people_with_flu, 'Have you come into contact with anyone wh
 question(travel_to_tropical_regions, 'Have you visited any tropical regions within the past two weeks?').
 question(recently_outdoors_with_poor_sanitation_and_hot_temperatures, 'Have you spent time outdoors in areas with inadequate sanitation and hot temperatures within the past two weeks?').
 question(possible_exposure_to_animal_fluids, 'Have you come into contact with animal fluids within the past two weeks?').
-question(recently_contacted_with_soil, 'Have you had any contact with soil within the past two weeks?').
+question(recently_contacted_with_soil, 'Have you had any bare contact with soil within the past two weeks?').
 
 
 % Identify risks
@@ -40,7 +40,7 @@ ask(Cause, Answer) :-
     % get answer choices
     question(Cause, Prompt),
     % display prompt
-    write(Prompt), write(' (yes/no) '), nl, 
+    write(Prompt), write(' (yes/no) '), nl,
 	write('Answer: '), read(Answer),
     validate_answer(Answer, [yes,no]).
 

@@ -1,7 +1,7 @@
 % Define the weight of each symptom severity level for each disease
 weight(0, _, 0.0).
-weight(1, _, 0.08).
-weight(2, _, 0.1).
+weight(1, _, 0.2).
+weight(2, _, 0.4).
 weight(3, _, 0.8).
 weight(4, _, 1).
 
@@ -214,16 +214,25 @@ total_score(Disease, Score) :-
            ),
     sum_list(Scores, Score).
 
+count_symptoms(Disease, Count) :-
+    findall(Symptom, symptom_of(Disease, Symptom), Symptoms),
+    length(Symptoms, Count).
+
+percentage(Actual, Total, Percent) :-
+    Percent is (Actual / Total).
+
 disease_risk([], []).
 disease_risk([Disease | RestDiseases], [Risk | RestRisks]) :-
     findall(Symptom, symptom_of(Disease, Symptom), _),
     total_score(Disease, Score),
-    (Score/5 =< 0.2 -> Risk = 'very low';
-    Score/5 =< 0.4 -> Risk = low;
-    Score/5 =< 0.6 -> Risk = medium;
-    Score/5 =< 0.8 -> Risk = high;
+    count_symptoms(Disease, Count),
+    percentage(Score, Count, Percent),
+    (Percent =< 0.20 -> Risk = 'very low';
+    Percent =< 0.40 -> Risk = low;
+    Percent =< 0.60 -> Risk = medium;
+   Percent =< 0.80 -> Risk = high;
     Risk = 'very high'),
-    RiskScore is Score/5,
+    RiskScore is Percent,
     assertz(risk_scores(RiskScore)),
 	assertz(risk_ratings(Risk)),nl,
     disease_risk(RestDiseases, RestRisks).
