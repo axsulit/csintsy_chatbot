@@ -44,18 +44,28 @@ chat :-
 	patient_info([name=PName, age=Age, sex=Sex, height=Height, weight=Weight, bp=BP, smokes=Smoker, drinks=Alcoholic]),
 	
     write('PART 2: Select your main reason for consultation:'), nl,
-    chief_complaint(Complaint, Severity),
+    chief_complaint(Complaint, Severity), nl, nl,
 
     write('PART 3: Please answer the following questions:'), nl,
-    ask_history(PName, Causes),
+    ask_history(PName, Causes), nl,
 
     identify_potential_disease(Disease, Complaint, Severity, Causes),
 
     write('PART 4: Please answer some additional questions to help me better diagnose you.'),nl,
     disease_risk(Disease, _),
     get_disease(Disease, Diagnosis, Rating),
-
-    write('Present this information to a medical facility for further testing and diagnosis:'), nl,
+	
+	(
+	   Rating = low ; Rating = 'very low'
+	   -> write('My apologies, based on the information you have provided, I am unable to determine your condition. It is best to consult with a healthcare professional at a large medical facility to perform a proper physical examination and run any necessary tests to provide an accurate diagnosis.')
+	   ; 
+		  format('Based on the symptoms you have provided, our initial diagnosis is ~w with ~w risk. \nHowever, it is important to seek medical attention from a healthcare professional for a complete evaluation and treatment plan. \nI recommend scheduling an appointment with a physician or a specialist as soon as possible.\n If your symptoms worsen or you experience any emergency symptoms, please seek immediate medical attention.', [Diagnosis, Rating]) 
+		  %write(Diagnosis), nl,
+		  %write('Risk level: '), write(Rating), nl
+	   
+	),
+	
+    write('Should you go to a medical facility, you may present this information for further evaluation:'), nl,
     write('Name: '), write(PName), nl,
     write('Age: '), write(Age), nl,
     write('Sex: '), write(Sex), nl,
@@ -67,9 +77,10 @@ chat :-
 	nl,
     write('Chief Complaint: '), write(Complaint), nl,
     write('Summary of patient history: '), write(Causes), nl,
-	nl,
-    write('Based on the symptoms you provided, our initial diagnosis is: '), write(Diagnosis), nl,
-    write('Risk level/s: '), write(Rating), nl.
+	nl.
+
+	
+	
 
 %run_on_load :-
 %    chat.
