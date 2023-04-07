@@ -232,15 +232,19 @@ disease_risk([Disease | RestDiseases], [Risk | RestRisks]) :-
 identify_potential_disease(Diseases, Complaint, Severity, Causes) :-
     weight(Severity, _, Score),
     add_symptom(_, Complaint, Score),
-    findall(Disease,
-            (cause_of(Disease, Cause),
-             member(Cause, Causes),
-             symptom_of(Disease, Complaint)
-            ),
-            DiseasesWithRepeats
-           ),
+    (   Causes = []
+    ->  findall(Disease, symptom_of(Disease, Complaint), DiseasesWithRepeats)
+    ;   findall(Disease,
+                (cause_of(Disease, Cause),
+                 member(Cause, Causes),
+                 symptom_of(Disease, Complaint)
+                ),
+                DiseasesWithRepeats
+            )
+    ),
     list_to_set(DiseasesWithRepeats, Diseases), nl,
     write('TO REMOVE: You may have the following diseases: '), write(Diseases), nl, nl.
+
 
 % Get the index of the largest risk score in the given list
 index_of_max(List, Index) :-
