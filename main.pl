@@ -10,9 +10,9 @@
 % Knowledge base
 :- dynamic patient_info/1.
 
-% ask for patient information and store it in patient_info
+% Ask for patient information and store it in patient_info
 ask_patient_info :-
-    write('Full Name: '), read(PName),
+    write('Name: '), read(PName),
     repeat,
 	write('Age: '), read(Age),
 	(integer(Age) -> ! ; write('Please enter a valid integer for age.'), nl, fail),
@@ -34,37 +34,28 @@ ask_patient_info :-
         (member(Alcoholic, [never, occasional, moderate, excessive]) -> ! ; write('Please enter a valid answer for alcohol consumption.'), nl, fail),
     assert(patient_info([name=PName,age=Age, sex=Sex, height=Height, weight=Weight, bp=BP, smokes=Smoker, drinks=Alcoholic])),nl,nl.
 
-% Display patient_info (FOR CHECKING)
-%  patient_info(PatientInfo),
-%  write('Patient Info: '), nl,
-%  write(PatientInfo), nl.
-
-get_patient_name(PName) :-
-    patient_info([name=PName | _]).
-
+%Facilitate conversation between patient and chatbot.
 chat :-
-    write('Hello! I am a Medical Chatbot designed to give you an initial diagnosis.'), nl,nl,
+    write('Hello! I am a Medical Chatbot specialized in Contagious Diseases that is designed to give you an initial diagnosis.'), nl,nl,
     write('Please be informed of our diagnostic process:'), nl, write('(1) Patient Data (2) Chief Complaint (3) History of Present Illness (4) Diagnosis.\n\n'), nl,
 
     write('PART 1: Please enter the patient information: '), nl,
     ask_patient_info,
-
+	patient_info([name=PName, age=Age, sex=Sex, height=Height, weight=Weight, bp=BP, smokes=Smoker, drinks=Alcoholic]),
+	
     write('PART 2: Select your main reason for consultation:'), nl,
     chief_complaint(Complaint, Severity),
 
     write('PART 3: Please answer the following questions:'), nl,
-    get_patient_name(PName),
     ask_history(PName, Causes),
 
     identify_potential_disease(Disease, Complaint, Severity, Causes),
 
     write('PART 4: Please answer some additional questions to help me better diagnose you.'),nl,
-    disease_risk(Disease, Risk),
-
-    get_disease,
+    disease_risk(Disease, _),
+    get_disease(Disease, Diagnosis, Rating),
 
     write('Present this information to a medical facility for further testing and diagnosis:'), nl,
-    patient_info([name=PName, age=Age, sex=Sex, height=Height, weight=Weight, bp=BP, smokes=Smoker, drinks=Alcoholic]),
     write('Name: '), write(PName), nl,
     write('Age: '), write(Age), nl,
     write('Sex: '), write(Sex), nl,
@@ -73,11 +64,12 @@ chat :-
     write('Blood Pressure: '), write(BP), write(' mmHg'), nl,
     write('Smoker: '), write(Smoker), nl,
     write('Alcohol Consumption: '), write(Alcoholic), nl,
+	nl,
     write('Chief Complaint: '), write(Complaint), nl,
     write('Summary of patient history: '), write(Causes), nl,
-    write('Based on the symptoms you provided, our initial diagnosis is: '), write(Disease), nl,
-    write('Risk level/s: '), write(Risk), nl.
-    %get_disease.
+	nl,
+    write('Based on the symptoms you provided, our initial diagnosis is: '), write(Diagnosis), nl,
+    write('Risk level/s: '), write(Rating), nl.
 
 %run_on_load :-
 %    chat.

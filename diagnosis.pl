@@ -148,6 +148,7 @@ cause_of(hookworm, recently_contacted_with_soil).
 :- dynamic checked_symptoms/1.
 :- dynamic symptom_flag/1.
 :- dynamic risk_scores/1.
+:- dynamic risk_ratings/1.
 
 checked_symptoms([]).
 symptom_flag(false).
@@ -181,6 +182,7 @@ ask_symptom(Symptom, Answer) :-
     format("Are you experiencing ~w? ", [Symptom]),
     read(Answer).
 
+% Compute weight of symptom severity
 symptom_score(Disease, Symptom, Score) :-
     checked_symptoms(List),
     % Specific symptom has not yet been asked
@@ -222,11 +224,11 @@ disease_risk([Disease | RestDiseases], [Risk | RestRisks]) :-
     Score/5 =< 0.8 -> Risk = high;
     Risk = 'very high'),
     RiskScore is Score/5,
-    assertz(risk_scores([Disease, RiskScore, Risk])),nl,
+    assertz(risk_scores(RiskScore)),
+	assertz(risk_ratings(Risk)),nl,
     disease_risk(RestDiseases, RestRisks).
 
-% Generates a list of potential diseases given the patients HPI and
-% Chief Complaint
+% Generates a list of potential diseases given the patients HPI and Chief Complaint
 identify_potential_disease(Diseases, Complaint, Severity, Causes) :-
     weight(Severity, _, Score),
     add_symptom(_, Complaint, Score),
@@ -240,8 +242,15 @@ identify_potential_disease(Diseases, Complaint, Severity, Causes) :-
     list_to_set(DiseasesWithRepeats, Diseases), nl,
     write('TO REMOVE: You may have the following diseases: '), write(Diseases), nl, nl.
 
-get_disease :-
-   findall([Disease, RiskScore, Risk], risk_scores([Disease, RiskScore,
-   Risk]), Scores),
-   write('Scores: '), write(Scores),nl.
+% Get the index of the largest risk score in the given list
+index_of_max(List, Index) :-
+    max_list(List, Max),
+    nth0(Index, List, Max).
 
+% Get the disease with the highest risk score
+get_disease(Diseases, Diagnosis, Rating) :-
+   findall(RiskScore, risk_scores(RiskScore), Scores),
+   findall(RiskRating, risk_ratings(RiskRating), Ratings),
+   index_of_max(Scores, Index),
+   nth0(Index, Ratings, Rating),
+   nth0(Index, Diseases, Diagnosis),nl.

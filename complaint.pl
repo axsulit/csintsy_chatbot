@@ -13,7 +13,7 @@ get_chief_complaint(11, 'stomach_pain').
 get_chief_complaint(12, 'abdominal_pain').
 
 % define valid choices for input in severity
-validate_severity(Severity) :-
+validate_cc_severity(Severity) :-
     Severity >= 1, Severity =< 4.
 
 % ask patient for severity input
@@ -21,7 +21,7 @@ ask_severity(Complaint, Severity) :-
     repeat,
     format("On a scale of 1 to 4, how severe is your ~w? ", [Complaint]),
     read(Severity),
-    (validate_severity(Severity) ->
+    (validate_cc_severity(Severity) ->
         true
     ;
         write('Invalid input. Please enter a number between 1 and 4.'), nl,

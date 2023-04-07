@@ -29,7 +29,7 @@ ask_severity(Complaint, Severity) :-
     ).
 
 validate_input(Input) :-
-    Input >= 1, Input <= 12.
+    Input >= 1, Input =< 12.
 
 % get chief complaint
 chief_complaint(Complaint, Severity) :-

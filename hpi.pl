@@ -65,8 +65,3 @@ ask_history(Patient, Causes) :-
     % FOR CHECKING
     % write(Causes), nl,
     % write('Done with ask_history'),nl.
-
-
-
-
-
