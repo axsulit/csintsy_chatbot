@@ -79,7 +79,6 @@ symptom_of(pneumonia, nausea).
 symptom_of(pneumonia, vomiting).
 symptom_of(pneumonia, diarrhea).
 symptom_of(pneumonia, difficulty_breathing).
-symptom_of(pneumonia, has_chronic_pulmonary_diseases).
 
 symptom_of(hepatitis_b, fever).
 symptom_of(hepatitis_b, fatigue).
@@ -138,6 +137,7 @@ cause_of(leptospirosis, contaminated_food_or_beverages).
 cause_of(dengue, travel_to_tropical_regions).
 cause_of(influenza, exposure_to_people_with_flu).
 cause_of(pneumonia, has_hiv_or_aids).
+cause_of(pneumonia, has_chronic_pulmonary_diseases).
 cause_of(hepatitis_b, contact_with_bodily_fluids).
 cause_of(hepatitis_b, sexually_active).
 cause_of(malaria, travel_to_tropical_regions).
@@ -242,8 +242,8 @@ identify_potential_disease(Diseases, Complaint, Severity, Causes) :-
     weight(Severity, _, Score),
     add_symptom(_, Complaint, Score),
     (   Causes = []
-    ->  findall(Disease, symptom_of(Disease, Complaint), DiseasesWithRepeats)
-    ;   findall(Disease,
+    ->  findall(Disease, symptom_of(Disease, Complaint), DiseasesWithRepeats) % Case 2
+    ;   findall(Disease, % Case 1
                 (cause_of(Disease, Cause),
                  member(Cause, Causes),
                  symptom_of(Disease, Complaint)
@@ -251,9 +251,15 @@ identify_potential_disease(Diseases, Complaint, Severity, Causes) :-
                 DiseasesWithRepeats
             )
     ),
-    list_to_set(DiseasesWithRepeats, Diseases), nl,
-    write('TO REMOVE: You may have the following diseases: '), write(Diseases), nl, nl.
+    list_to_set(DiseasesWithRepeats, Placeholder), nl,
 
+    ( Placeholder = []
+    -> findall(Disease, (symptom_of(Disease, Complaint) ; (cause_of(Disease, Cause), member(Cause, Causes)) ),DiseasesWithNoRepeats), %Case 3
+        list_to_set(DiseasesWithNoRepeats, Diseases), nl
+    ;    
+        list_to_set(Placeholder, Diseases), nl,
+        ),
+    write('TO REMOVE: You may have the following diseases: '), write(Diseases), nl, nl.
 
 % Get the index of the largest risk score in the given list
 index_of_max(List, Index) :-
