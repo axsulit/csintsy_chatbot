@@ -33,29 +33,22 @@ question(possible_exposure_to_animal_fluids, 'Have you come into contact with an
 question(recently_contacted_with_soil, 'Have you had any bare contact with soil within the past two weeks?').
 
 
-% Identify risks
-ask(Cause, Answer) :-
-    % get cause
-    cause(Cause),
-    % get answer choices
-    question(Cause, Prompt),
-    % display prompt
+ask_question(Patient, Cause, Prompt) :-
     write(Prompt), write(' (yes/no) '), nl,
-	write('Answer: '), read(Answer),
-    validate_answer(Answer, [yes,no]).
-
-% Validate the answer
-validate_answer(Answer, Options) :-
-    member(Answer, Options),
-    !.
-validate_answer(Answer, _) :-
-    write('Invalid answer: '), write(Answer), write('.'), nl,
-    fail.
+    write('Answer: '), read(Answer), nl,
+    (member(Answer, [yes, no])
+    -> (Answer == yes, assertz(symptom(Patient, Cause)))
+       
+    ;   write('Invalid input. Please enter either "yes" or "no".'), nl,
+        ask_question(Patient, Cause, Prompt)
+    ).
 
 % Ask all the questions and store the positive answers in the knowledge base
 ask_history(Patient, Causes) :-
-    findall(Cause, (
-        ask(Cause, Answer),
-        Answer == yes, % Only store positive answers
-        assertz(symptom(Patient, Cause))
-    ),Causes).
+    findall(Cause,
+        ( question(Cause, Prompt),
+          ask_question(Patient, Cause, Prompt)
+          ),
+          Causes
+        ),
+    write('causes: '), write(Causes), nl.
