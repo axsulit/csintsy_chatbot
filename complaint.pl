@@ -5,12 +5,12 @@ get_chief_complaint(3, 'diarrhea').
 get_chief_complaint(4, 'constipation').
 get_chief_complaint(5, 'jaundice').
 get_chief_complaint(6, 'rash').
-get_chief_complaint(7, 'itching').
+get_chief_complaint(7, 'itchy skin').
 get_chief_complaint(8, 'cough').
-get_chief_complaint(9, 'muscle_pain').
-get_chief_complaint(10, 'joint_pain').
-get_chief_complaint(11, 'stomach_pain').
-get_chief_complaint(12, 'abdominal_pain').
+get_chief_complaint(9, 'muscle pain').
+get_chief_complaint(10, 'joint pain').
+get_chief_complaint(11, 'stomach pain').
+get_chief_complaint(12, 'abdominal pain').
 
 % define valid choices for input in severity
 validate_cc_severity(Severity) :-
@@ -54,4 +54,3 @@ chief_complaint(Complaint, Severity) :-
     get_chief_complaint(Input, Complaint),nl,
     write('Your chief complaint is: '), write(Complaint), nl,
     ask_severity(Complaint, Severity).
-
