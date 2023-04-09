@@ -12,6 +12,10 @@ get_chief_complaint(10, 'joint pain').
 get_chief_complaint(11, 'stomach pain').
 get_chief_complaint(12, 'abdominal pain').
 
+% clear list of chief complaint
+clear_cc :-
+    retractall(Complaint).
+
 % define valid choices for input in severity
 validate_cc_severity(Severity) :-
     Severity >= 1, Severity =< 4.

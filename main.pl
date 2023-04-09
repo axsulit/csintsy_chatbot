@@ -83,10 +83,8 @@ chat :-
 	nl,
     write('Chief Complaint: '), write(Complaint), nl,
     write('Summary of patient history: '), write(Causes), nl,
-	nl.
+    clear_cc, clear_symptoms.
 
-	
-	
 
 %run_on_load :-
 %    chat.

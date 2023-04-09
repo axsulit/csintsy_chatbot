@@ -150,6 +150,9 @@ cause_of(hookworm, 'bare contact with soil').
 :- dynamic risk_scores/1.
 :- dynamic risk_ratings/1.
 
+clear_symptoms :-
+    retractall(checked_symptoms(_)).
+
 checked_symptoms([]).
 symptom_flag(false).
 
