@@ -25,7 +25,7 @@ ask_patient_info :-
     repeat,
         write('Weight (in kg): '), read(Weight),
         (integer(Weight) -> ! ; write('Please enter a valid integer for weight.'), nl, fail),
-        write('Blood Pressure (systic/diastolic): '), read(BP),
+        write('Blood Pressure (systolic/diastolic): '), read(BP),
     repeat,
         write('Do you smoke? (yes/no): '), read(Smoker),
         (member(Smoker, [yes, no]) -> ! ; write('Please enter "yes" or "no" for smoking status.'), nl, fail),
