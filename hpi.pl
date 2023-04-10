@@ -32,6 +32,17 @@ question('stayed outdoors with poor sanitation and hot temperatures', 'Have you 
 question('exposure to animal fluids', 'Have you come into contact with animal fluids within the past two weeks?').
 question('bare contact with soil', 'Have you had any bare contact with soil within the past two weeks?').
 
+% Define a predicate that checks if PatientName and Causes list contain a value, and if true, empty it, else do nothing.
+empty_hpi_if_bound(Patient, Causes) :-
+    (var(Patient); (nonvar(Causes), Causes \== [])),
+    !, % cut to prevent backtracking
+    retract(Patient),
+    retract(Causes),
+    write('PatientName and Causes have been emptied.').
+
+% Define a predicate that does nothing if PatientName and Causes list are unbound.
+empty_hpi_if_bound(_, _) :-
+    write('PatientName and Causes are unbound.').
 
 ask_question(Patient, Cause, Prompt) :-
     write(Prompt), write(' (yes/no) '), nl,

@@ -43,13 +43,21 @@ chat :-
     ask_patient_info,
 	patient_info([name=PName, age=Age, sex=Sex, height=Height, weight=Weight, bp=BP, smokes=Smoker, drinks=Alcoholic]),
 	
+    empty_cc_if_bound(Complaint, Severity),
     write('PART 2: Select your main reason for consultation:'), nl,
-    chief_complaint(Complaint, Severity), nl, nl,
+    chief_complaint(Complaint, Severity),
+    write('Complaint: '), write(Complaint), nl,
+    write('Severity: '), write(Severity), nl, nl,
 
+    empty_hpi_if_bound(PName, Causes),
     write('PART 3: Please answer the following questions:'), nl,
-    ask_history(PName, Causes), nl,
+    ask_history(PName, Causes), 
+    write('Name: '), write(PName), nl,
+    write('Causes: '), write(Causes), nl,
 
+    empty_dynamic_rules_and_variables_if_bound(Disease, Diagnosis, Rating),
     identify_potential_disease(Disease, Complaint, Severity, Causes),
+    write('Disease: '), write(Disease),nl,
 
     write('PART 4: Please answer some additional questions to help me better diagnose you.'),nl,
     write('If you answer NO, it will be assumed that you do not have a symptom, thus your symptom severity will be considered zero.'),nl,
@@ -59,7 +67,11 @@ chat :-
     write('3 | Severe'), nl,
     write('4 | Very Severe'), nl, nl,
     disease_risk(Disease, _),
+    empty_if_bound(Diagnosis),
+    empty_if_bound(Rating),
     get_disease(Disease, Diagnosis, Rating),
+    write('Diagnosis: '), write(Diagnosis), nl,
+    write('Rating: '), write(Rating), nl,
 	
 	(
 	   Rating = low ; Rating = 'very low'
@@ -82,8 +94,10 @@ chat :-
     write('Alcohol Consumption: '), write(Alcoholic), nl,
 	nl,
     write('Chief Complaint: '), write(Complaint), nl,
-    write('Summary of patient history: '), write(Causes), nl,
-    clear_cc, clear_symptoms.
+    write('Summary of patient history: '), write(Causes), nl.
+
+    %clear_cc, 
+    %clear_symptoms.
 
 
 %run_on_load :-

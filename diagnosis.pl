@@ -150,6 +150,29 @@ cause_of(hookworm, 'bare contact with soil').
 :- dynamic risk_scores/1.
 :- dynamic risk_ratings/1.
 
+
+print_rules :-
+    listing(checked_symptoms/1),
+    listing(symptom_flag/1),
+    listing(risk_scores/1),
+    listing(risk_ratings/1).
+
+    empty_dynamic_rules_and_variables_if_bound(Disease, Diagnosis, Rating) :-
+        % Check if Disease or Diagnosis or Rating is non-empty
+        (nonvar(Disease); nonvar(Diagnosis); nonvar(Rating); nonvar(checked_symptoms(_)); nonvar(symptom_flag(_)); nonvar(risk_scores(_)); nonvar(risk_ratings(_))),
+        !, % Cut to prevent backtracking
+        retractall(checked_symptoms(_)),
+        retractall(symptom_flag(_)),
+        retractall(risk_scores(_)),
+        retractall(risk_ratings(_)),
+        retractall(Disease),
+        retractall(Diagnosis),
+        retractall(Rating),
+        write('Dynamic rules and variables emptied.').
+    
+    empty_dynamic_rules_and_variables_if_bound(_, _, _) :-
+        write('Nothing to empty.').
+
 clear_symptoms :-
     retractall(checked_symptoms(_)).
 
