@@ -179,8 +179,15 @@ ask_symptom_severity(Symptom, Severity) :-
 % Display a prompt to ask if the user is experiencing a particular
 % symptom
 ask_symptom(Symptom, Answer) :-
+    repeat,
     format("Are you experiencing ~w? ", [Symptom]),
-    read(Answer).
+    read(Answer),
+    (not(member(Answer, [yes, no]))
+        -> write('Invalid input. Please enter either "yes" or "no".'), nl,
+            fail
+        ; !
+    ).
+
 
 % Compute weight of symptom severity
 symptom_score(Disease, Symptom, Score) :-

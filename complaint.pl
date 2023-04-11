@@ -12,9 +12,23 @@ get_chief_complaint(10, 'joint pain').
 get_chief_complaint(11, 'stomach pain').
 get_chief_complaint(12, 'abdominal pain').
 
+
+% Check if Complaint and Severity are unbound (i.e., do not have a value)
+empty_cc_if_bound(Complaint, Severity) :-
+    var(Complaint),
+    var(Severity),
+    write('Complaint and Severity are unbound.').
+
+% Check if Complaint or Severity are bound (i.e., have a value)
+empty_cc_if_bound(Complaint, Severity) :-
+    (\+ var(Complaint); \+ var(Severity)),
+    retract(Complaint),
+    retract(Severity),
+    write('Complaint and Severity have been emptied.').
+
 % define valid choices for input in severity
 validate_cc_severity(Severity) :-
-    Severity >= 1, Severity =< 4.
+    number(Severity), Severity >= 1, Severity =< 4.
 
 % ask patient for severity input
 ask_severity(Complaint, Severity) :-
