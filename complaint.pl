@@ -13,24 +13,24 @@ get_chief_complaint(11, 'stomach pain').
 get_chief_complaint(12, 'abdominal pain').
 
 
-% Check if Complaint and Severity are unbound (i.e., do not have a value)
+% Check if Complaint and Severity are unbound 
 empty_cc_if_bound(Complaint, Severity) :-
     var(Complaint),
     var(Severity),
     write('Complaint and Severity are unbound.').
 
-% Check if Complaint or Severity are bound (i.e., have a value)
+% Check if Complaint or Severity are bound 
 empty_cc_if_bound(Complaint, Severity) :-
     (\+ var(Complaint); \+ var(Severity)),
     retract(Complaint),
     retract(Severity),
     write('Complaint and Severity have been emptied.').
 
-% define valid choices for input in severity
+% Define valid choices for input in severity
 validate_cc_severity(Severity) :-
     number(Severity), Severity >= 1, Severity =< 4.
 
-% ask patient for severity input
+% Ask patient for severity input
 ask_severity(Complaint, Severity) :-
     repeat,
     format("On a scale of 1 to 4, how severe is your ~w? ", [Complaint]),
@@ -42,10 +42,11 @@ ask_severity(Complaint, Severity) :-
         fail
     ).
 
+% Define valid choices for CC.
 validate_input(Input) :-
     Input >= 1, Input =< 12.
 
-% get chief complaint
+% Get chief complaint.
 chief_complaint(Complaint, Severity) :-
     repeat,
        write('1  | Fever'), nl,

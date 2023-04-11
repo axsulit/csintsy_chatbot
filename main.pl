@@ -1,11 +1,7 @@
-% Start the bot on load.
-%:- initialization(run_on_load).
-
 % Load necessary files
 :- consult('complaint.pl').
 :- consult('hpi.pl').
 :- consult('diagnosis.pl').
-
 
 % Knowledge base
 :- dynamic patient_info/1.
@@ -66,9 +62,6 @@ chat :-
 	   -> write('My apologies, but I am unable to identify your condition with the information you have provided. It would be best to \nseek the advice of a healthcare professional at a large medical facility who can conduct a thorough physical \nexamination and perform any necessary tests to give you an accurate diagnosis.')
 	   ; 
 		  format('Based on the symptoms you have described, our initial diagnosis suggests that you have ~w with a ~w risk level. \nNonetheless, it is still advised to see a healthcare professional for a complete evaluation and treatment plan as soon \nas possible. If symptoms worsen or emergency symptoms arise, please seek immediate medical attention.', [Diagnosis, Rating]) 
-		  %write(Diagnosis),
-		  %write('Risk level: '), write(Rating), nl,nl
-	   
 	),
 	
     write('\n\nShould you go to a medical facility, you may present this information for further evaluation:'), nl,
@@ -84,13 +77,4 @@ chat :-
     write('Chief Complaint: '), write(Complaint), nl,
     write('Summary of patient history: '), write(Causes), nl,
 	nl.
-
-	
-	
-
-%run_on_load :-
-%    chat.
-
-
-
 

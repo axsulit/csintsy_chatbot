@@ -32,7 +32,7 @@ question('stayed outdoors with poor sanitation and hot temperatures', 'Have you 
 question('exposure to animal fluids', 'Have you come into contact with animal fluids within the past two weeks?').
 question('bare contact with soil', 'Have you had any bare contact with soil within the past two weeks?').
 
-
+% Ask the questions.
 ask_question(Patient, Cause, Prompt) :-
     write(Prompt), write(' (yes/no) '), nl,
     write('Answer: '), read(Answer), nl,
