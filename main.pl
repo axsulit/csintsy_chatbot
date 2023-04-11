@@ -35,18 +35,22 @@ chat :-
     write('Hello! I am a Medical Chatbot specialized in Contagious Diseases that is designed to give you an initial diagnosis.'), nl,nl,
     write('Please be informed of our diagnostic process:'), nl, write('(1) Patient Data (2) Chief Complaint (3) History of Present Illness (4) Diagnosis.\n\n'), nl,
 
+    % patient information
     write('PART 1: Please enter the patient information: '), nl,
     ask_patient_info,
 	patient_info([name=PName, age=Age, sex=Sex, height=Height, weight=Weight, bp=BP, smokes=Smoker, drinks=Alcoholic]),
 	
+    % chief complaint
     write('PART 2: Select your main reason for consultation:'), nl,
     chief_complaint(Complaint, Severity), nl, nl,
 
+    % hpi
     write('PART 3: Please answer the following questions:'), nl,
     ask_history(PName, Causes), nl,
 
     identify_potential_disease(Disease, Complaint, Severity, Causes),
 
+    % disease-specific symptoms
     write('PART 4: Please answer some additional questions to help me better diagnose you.'),nl,
     write('If you answer NO, it will be assumed that you do not have a symptom, thus your symptom severity will be considered zero.'),nl,
     write('If you answer YES, please indicate the severity using the following scale: '),nl,
@@ -57,6 +61,7 @@ chat :-
     disease_risk(Disease, _),
     get_disease(Disease, Diagnosis, Rating),
 	
+    % final diagnosis
 	(
 	   Rating = low ; Rating = 'very low'
 	   -> write('My apologies, but I am unable to identify your condition with the information you have provided. It would be best to \nseek the advice of a healthcare professional at a large medical facility who can conduct a thorough physical \nexamination and perform any necessary tests to give you an accurate diagnosis.')
