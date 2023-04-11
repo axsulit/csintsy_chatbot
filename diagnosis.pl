@@ -237,7 +237,7 @@ disease_risk([Disease | RestDiseases], [Risk | RestRisks]) :-
     (Percent =< 0.20 -> Risk = 'very low';
     Percent =< 0.40 -> Risk = low;
     Percent =< 0.60 -> Risk = medium;
-   Percent =< 0.80 -> Risk = high;
+    Percent =< 0.80 -> Risk = high;
     Risk = 'very high'),
     RiskScore is Percent,
     assertz(risk_scores(RiskScore)),
@@ -266,8 +266,7 @@ identify_potential_disease(Diseases, Complaint, Severity, Causes) :-
         list_to_set(DiseasesWithNoRepeats, Diseases), nl
     ;
         list_to_set(Placeholder, Diseases), nl
-        ),
-    write('TO REMOVE: You may have the following diseases: '), write(Diseases), nl, nl.
+        ).
 
 % Get the index of the largest risk score in the given list
 index_of_max(List, Index) :-

@@ -50,5 +50,4 @@ ask_history(Patient, Causes) :-
           ask_question(Patient, Cause, Prompt)
           ),
           Causes
-        ),
-    write('causes: '), write(Causes), nl.
+        ).
