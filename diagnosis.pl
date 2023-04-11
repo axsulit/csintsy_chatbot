@@ -221,13 +221,16 @@ total_score(Disease, Score) :-
            ),
     sum_list(Scores, Score).
 
+% Counts all the associated symoptoms for a disease
 count_symptoms(Disease, Count) :-
     findall(Symptom, symptom_of(Disease, Symptom), Symptoms),
     length(Symptoms, Count).
 
+% Computes for the risk score of a disease
 percentage(Actual, Total, Percent) :-
     Percent is (Actual / Total).
 
+% Determines the risk of the disease based on the numeric risk score
 disease_risk([], []).
 disease_risk([Disease | RestDiseases], [Risk | RestRisks]) :-
     findall(Symptom, symptom_of(Disease, Symptom), _),
